@@ -42,7 +42,7 @@
         "@react-financial-charts/core": "file:../core",
         "d3-array": "^2.9.1",
         "d3-format": "^2.0.0",
-        "d3-interpolate": "^2.0.1",
+        "d3-interpolate": "^3.0.1",
         "d3-path": "^2.0.0"
     },
     "peerDependencies": {
