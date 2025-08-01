@@ -1,4 +1,4 @@
-import { GenericComponent, functor, ChartCanvasContext } from "@react-financial-charts/core";
+import { GenericComponent, functor, ChartCanvasContext, ChartCanvasContextType } from "@react-financial-charts/core";
 import { ScaleContinuousNumeric } from "d3-scale";
 import * as React from "react";
 
@@ -33,6 +33,7 @@ export class Label extends React.Component<LabelProps> {
     };
 
     public static contextType = ChartCanvasContext;
+    public context!: ChartCanvasContextType<number | Date>;
 
     public render() {
         const { selectCanvas } = this.props;

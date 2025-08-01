@@ -1,4 +1,4 @@
-import { ChartContext, strokeDashTypes } from "@react-financial-charts/core";
+import { ChartContext, ChartContextType, strokeDashTypes } from "@react-financial-charts/core";
 import * as React from "react";
 import { Axis } from "./Axis";
 
@@ -67,6 +67,7 @@ export class YAxis extends React.Component<YAxisProps> {
     };
 
     public static contextType = ChartContext;
+    public context!: ChartContextType;
 
     public render() {
         const {
@@ -97,7 +98,9 @@ export class YAxis extends React.Component<YAxisProps> {
     private readonly axisZoomCallback = (newYDomain: number[]) => {
         const { chartId, yAxisZoom } = this.context;
 
-        yAxisZoom(chartId, newYDomain);
+        if (yAxisZoom && chartId !== undefined) {
+            yAxisZoom(String(chartId), newYDomain);
+        }
     };
 
     private readonly helper = () => {
@@ -106,7 +109,7 @@ export class YAxis extends React.Component<YAxisProps> {
             chartConfig: { width, height },
         } = this.context;
 
-        let axisLocation;
+        let axisLocation: number;
         const y = 0;
         const w = yZoomWidth;
         const h = height;
@@ -122,7 +125,7 @@ export class YAxis extends React.Component<YAxisProps> {
                 axisLocation = width / 2;
                 break;
             default:
-                axisLocation = axisAt;
+                axisLocation = typeof axisAt === "number" ? axisAt : width;
         }
 
         const x = orient === "left" ? -yZoomWidth : 0;

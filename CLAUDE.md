@@ -1,0 +1,76 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+React Financial Charts is a TypeScript-based monorepo for creating financial charts in React. It's a fork of react-stockcharts, fully converted to TypeScript with extensive bug fixes and improvements. The project uses Lerna for managing multiple packages and dependencies.
+
+## Common Commands
+
+### Development
+- `npm start` - Starts development server with watch mode and Storybook
+- `npm run build` - Builds all packages using Lerna
+- `npm run watch` - Watches all packages for changes in parallel
+- `npm run bootstrap` - Bootstraps Lerna dependencies (runs automatically after install)
+
+### Linting and Testing
+- `npm run lint` - Runs ESLint on TypeScript/TSX files
+- `npm run lint:fix` - Fixes ESLint issues automatically
+- `npm test` - Runs tests across all packages
+
+### Package-Specific Builds
+- `npm run build:core` - Builds only the core package
+- `npm run build:charts` - Builds only the main charts package
+- `npm run build:series` - Builds only the series package
+- `npm run build:indicators` - Builds only the indicators package
+- Individual packages can be built with: `lerna run build --scope='*/[package-name]'`
+
+### Documentation
+- `npm run docs` - Builds documentation and Storybook stories
+- `npm run start:stories` - Starts Storybook development server
+
+### Cleanup
+- `npm run clean` - Cleans all packages and node_modules
+- `npm run clean:packages` - Cleans only package build outputs
+
+## Architecture
+
+### Monorepo Structure
+The project is organized as a Lerna monorepo with packages in `/packages/`:
+
+- **`core`** - Core chart components (ChartCanvas, Chart, EventCapture)
+- **`charts`** - Main entry point that re-exports all other packages
+- **`series`** - Chart series components (CandlestickSeries, LineSeries, AreaSeries, etc.)
+- **`indicators`** - Technical indicators (MACD, RSI, Bollinger Bands, etc.)
+- **`coordinates`** - Mouse and cursor coordinate components
+- **`axes`** - X and Y axis components
+- **`annotations`** - Chart annotation components
+- **`interactive`** - Interactive drawing tools (TrendLine, Fibonacci, etc.)
+- **`tooltip`** - Tooltip components for various chart types
+- **`scales`** - Time and price scaling utilities
+- **`utils`** - Shared utility components and functions
+- **`stories`** - Storybook examples and documentation
+
+### Key Components
+- **ChartCanvas** (`packages/core/src/ChartCanvas.tsx`) - Main chart container that handles canvas rendering, events, and data management
+- **Chart** - Individual chart panels within ChartCanvas
+- **Series Components** - Render different chart types (candlestick, line, area, etc.)
+- **Indicators** - Technical analysis overlays and separate indicator panels
+
+### Data Flow
+Charts expect data in OHLC format with time-based x-axis scaling. The core uses D3 scales for price and time domains, with custom discontinuous time scaling for financial markets.
+
+### Canvas Architecture
+The library uses HTML5 Canvas for high-performance rendering of financial data, with SVG overlays for interactive elements and tooltips.
+
+## Development Notes
+
+### TypeScript Configuration
+Each package has its own `tsconfig.json` that extends common TypeScript settings. The build process compiles TypeScript to both CommonJS and ES modules.
+
+### Testing
+Tests use Jest and are located in `__tests__` directories within each package. Run tests for individual packages using Lerna scoping.
+
+### Storybook
+Examples and documentation are built using Storybook. Stories are located in `packages/stories/src/` organized by feature and component type.

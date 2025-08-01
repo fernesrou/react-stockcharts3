@@ -1,4 +1,4 @@
-export { ChartCanvas, ChartCanvasContext } from "./ChartCanvas";
+export { ChartCanvas, ChartCanvasContext, ChartCanvasContextType } from "./ChartCanvas";
 export * from "./Chart";
 export * from "./GenericChartComponent";
 export * from "./GenericComponent";

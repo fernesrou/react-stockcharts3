@@ -1,5 +1,6 @@
 import {
     ChartCanvasContext,
+    ChartCanvasContextType,
     first,
     GenericComponent,
     getMouseCanvas,
@@ -40,6 +41,7 @@ export class Cursor extends React.Component<CursorProps> {
     };
 
     public static contextType = ChartCanvasContext;
+    public context!: ChartCanvasContextType<number | Date>;
 
     public render() {
         return (
