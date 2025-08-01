@@ -1,5 +1,6 @@
-import { ChartContext, last } from "@react-financial-charts/core";
+import { ChartContext, ChartContextType, last } from "@react-financial-charts/core";
 import { interpolateNumber } from "d3-interpolate";
+import { ScaleContinuousNumeric } from "d3-scale";
 import * as React from "react";
 
 export interface ZoomButtonsProps {
@@ -27,6 +28,7 @@ export class ZoomButtons extends React.Component<ZoomButtonsProps> {
     };
 
     public static contextType = ChartContext;
+    public context!: ChartContextType;
 
     private interval?: number;
 
@@ -141,11 +143,12 @@ export class ZoomButtons extends React.Component<ZoomButtonsProps> {
 
         const c = direction > 0 ? 1 * zoomMultiplier : 1 / zoomMultiplier;
 
-        const [start, end] = xScale.domain();
-        const [newStart, newEnd] = xScale
+        const scale = xScale as ScaleContinuousNumeric<number, number>;
+        const [start, end] = scale.domain();
+        const [newStart, newEnd] = scale
             .range()
             .map((x: number) => cx + (x - cx) * c)
-            .map(xScale.invert);
+            .map(scale.invert);
 
         const left = interpolateNumber(start, newStart);
         const right = interpolateNumber(end, newEnd);
@@ -154,12 +157,17 @@ export class ZoomButtons extends React.Component<ZoomButtonsProps> {
             return [left(i), right(i)];
         });
 
-        this.interval = window.setInterval(() => {
-            xAxisZoom(foo.shift());
-            if (foo.length === 0) {
-                clearInterval(this.interval);
-                delete this.interval;
-            }
-        }, 10);
+        if (xAxisZoom) {
+            this.interval = window.setInterval(() => {
+                const domain = foo.shift();
+                if (domain) {
+                    xAxisZoom(domain);
+                }
+                if (foo.length === 0) {
+                    clearInterval(this.interval);
+                    delete this.interval;
+                }
+            }, 10);
+        }
     };
 }

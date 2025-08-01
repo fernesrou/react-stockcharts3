@@ -884,8 +884,9 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
     public yAxisZoom = (chartId: string, newDomain: any) => {
         this.clearThreeCanvas();
         const { chartConfigs: initialChartConfig } = this.state;
+        
         const chartConfigs = initialChartConfig.map((each: any) => {
-            if (each.id === chartId) {
+            if (each.id == chartId) { // Use == instead of === to allow type coercion
                 const { yScale } = each;
                 return {
                     ...each,
