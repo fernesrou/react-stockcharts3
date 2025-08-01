@@ -91,6 +91,9 @@ export class GenericComponent extends React.Component<GenericComponentProps, Gen
 
         this.subscriberId = generateSubscriptionId();
 
+        // Initialize moreProps with context data early
+        this.updateMorePropsFromContext(props, context);
+
         this.state = {
             updateCount: 0,
         };
@@ -311,7 +314,7 @@ export class GenericComponent extends React.Component<GenericComponentProps, Gen
         }
     }
 
-    public UNSAFE_componentWillMount() {
+    public componentDidMount() {
         const { subscribe, chartId } = this.context;
         const { clip, edgeClip } = this.props;
 
@@ -324,7 +327,8 @@ export class GenericComponent extends React.Component<GenericComponentProps, Gen
             getPanConditions: this.getPanConditions,
         });
 
-        this.UNSAFE_componentWillReceiveProps(this.props, this.context);
+        this.updateMorePropsFromContext(this.props, this.context);
+        this.componentDidUpdate(this.props);
     }
 
     public componentWillUnmount() {
@@ -336,12 +340,11 @@ export class GenericComponent extends React.Component<GenericComponentProps, Gen
         }
     }
 
-    public componentDidMount() {
-        this.componentDidUpdate(this.props);
-    }
-
     public componentDidUpdate(prevProps: GenericComponentProps) {
         const { canvasDraw, selected, interactiveCursorClass } = this.props;
+
+        // Update context-derived props when context changes
+        this.updateMorePropsFromContext(this.props, this.context);
 
         if (prevProps.selected !== selected) {
             const { setCursorClass } = this.context;
@@ -359,8 +362,8 @@ export class GenericComponent extends React.Component<GenericComponentProps, Gen
         }
     }
 
-    public UNSAFE_componentWillReceiveProps(nextProps: GenericComponentProps, nextContext: any) {
-        const { xScale, plotData, chartConfig, getMutableState } = nextContext;
+    private updateMorePropsFromContext = (props: GenericComponentProps, context: any) => {
+        const { xScale, plotData, chartConfig, getMutableState } = context;
 
         this.moreProps = {
             ...this.moreProps,
@@ -375,6 +378,12 @@ export class GenericComponent extends React.Component<GenericComponentProps, Gen
             plotData,
             chartConfig,
         };
+    };
+
+    public static getDerivedStateFromProps(nextProps: GenericComponentProps, prevState: GenericComponentState) {
+        // This method is called before every render, including the initial mount
+        // We return the update count to trigger a re-render if needed
+        return prevState;
     }
 
     public getMoreProps() {
@@ -432,6 +441,9 @@ export class GenericComponent extends React.Component<GenericComponentProps, Gen
         if (canvasDraw !== undefined || svgDraw === undefined) {
             return null;
         }
+
+        // Ensure moreProps is up to date before rendering
+        this.updateMorePropsFromContext(this.props, this.context);
 
         const { chartId } = this.context;
 
