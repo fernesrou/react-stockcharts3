@@ -81,6 +81,8 @@ export interface ChartCanvasContextType<TXAxis extends number | Date> {
     displayXAccessor: (data: any) => TXAxis;
     xAxisZoom?: (newDomain: any) => void;
     yAxisZoom?: (chartId: string, newDomain: any) => void;
+    resetYDomain?: (chartId?: string) => void;
+    resetChart?: () => void;
     redraw: () => void;
     plotData: any[];
     fullData: any[];
@@ -1194,6 +1196,8 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
             ratio: this.props.ratio,
             xAxisZoom: this.xAxisZoom,
             yAxisZoom: this.yAxisZoom,
+            resetYDomain: this.resetYDomain,
+            resetChart: this.resetChart,
             getCanvasContexts: this.getCanvasContexts,
             redraw: this.redraw,
             subscribe: this.subscribe,
@@ -1229,6 +1233,12 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
                 chartConfigs: newChartConfig,
             });
         }
+    };
+
+    public resetChart = () => {
+        const newState = resetChart(this.props);
+        this.clearThreeCanvas();
+        this.setState(newState);
     };
 
     public shouldComponentUpdate() {

@@ -37,7 +37,7 @@ export class ZoomButtons extends React.Component<ZoomButtonsProps> {
 
         const { width, height } = chartConfig;
 
-        const { heightFromBase, r, fill, fillOpacity, onReset, stroke, strokeWidth, textFill } = this.props;
+        const { heightFromBase, r, fill, fillOpacity, stroke, strokeWidth, textFill } = this.props;
 
         const centerX = Math.round(width / 2);
         const y = height - heightFromBase;
@@ -108,7 +108,7 @@ export class ZoomButtons extends React.Component<ZoomButtonsProps> {
                 />
                 <circle
                     className="react-financial-charts-enable-interaction reset"
-                    onClick={onReset}
+                    onClick={this.handleReset}
                     cx={resetX - r / 2}
                     cy={y + r / 2}
                     r={r}
@@ -132,6 +132,18 @@ export class ZoomButtons extends React.Component<ZoomButtonsProps> {
         }
 
         this.zoom(1);
+    };
+
+    private readonly handleReset = () => {
+        const { resetChart } = this.context;
+        const { onReset } = this.props;
+        
+        // Use the context resetChart method if available, otherwise fall back to onReset prop
+        if (resetChart) {
+            resetChart();
+        } else if (onReset) {
+            onReset();
+        }
     };
 
     private readonly zoom = (direction: number) => {
