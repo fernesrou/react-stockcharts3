@@ -5,7 +5,7 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "lib": [
       "es6",
       "esnext",
@@ -21,7 +21,7 @@
     "sourceMap": true,
     "strict": true,
     "strictNullChecks": true,
-    "target": "es6"
+    "target": "es2020"
   },
   "include": [
     "src",

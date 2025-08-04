@@ -25,6 +25,7 @@ rules:
     - ignoreRestSiblings: true
   "react/display-name": off
   "react/prop-types": off
+  "react/react-in-jsx-scope": off
   "arrow-spacing": error
   "curly": error
   "no-duplicate-imports": error
@@ -34,5 +35,6 @@ rules:
 settings:
   react:
     version: detect
+    runtime: automatic
 env:
   node: true

@@ -137,7 +137,7 @@ export class ZoomButtons extends React.Component<ZoomButtonsProps> {
     private readonly handleReset = () => {
         const { resetChart } = this.context;
         const { onReset } = this.props;
-        
+
         // Use the context resetChart method if available, otherwise fall back to onReset prop
         if (resetChart) {
             resetChart();

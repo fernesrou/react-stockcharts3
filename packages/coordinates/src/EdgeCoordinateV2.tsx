@@ -1,5 +1,3 @@
-import * as React from "react";
-
 export function renderSVG(props: any) {
     const { className } = props;
 

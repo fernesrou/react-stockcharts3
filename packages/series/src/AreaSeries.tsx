@@ -1,7 +1,7 @@
 import { strokeDashTypes } from "@react-financial-charts/core";
 import { ScaleContinuousNumeric } from "d3-scale";
 import { CurveFactory } from "d3-shape";
-import React, { Component } from "react";
+import { Component } from "react";
 import { AreaOnlySeries } from "./AreaOnlySeries";
 import { LineSeries } from "./LineSeries";
 

@@ -1,5 +1,4 @@
 import { Story } from "@storybook/react";
-import * as React from "react";
 import { LineSeries, LineSeriesProps } from "../../../../series/src/LineSeries";
 import { Daily, Intraday } from "./BasicLineSeries";
 

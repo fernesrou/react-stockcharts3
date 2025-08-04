@@ -97,7 +97,7 @@ export class YAxis extends React.Component<YAxisProps> {
 
     private readonly axisZoomCallback = (newYDomain: number[]) => {
         const { chartId, yAxisZoom } = this.context;
-        
+
         if (yAxisZoom) {
             yAxisZoom(String(chartId), newYDomain);
         }
