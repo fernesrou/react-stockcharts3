@@ -1,7 +1,7 @@
-import { Canvas, Meta } from "@storybook/blocks";
-import StockChart from "./features/StockChart";
+import { Canvas, Meta, Story } from "@storybook/blocks";
+import * as IntroStories from "./Intro.stories";
 
-<Meta title="Intro" />
+<Meta of={IntroStories} />
 
 # React Financial Charts
 
@@ -13,6 +13,4 @@ Charts dedicated to finance.
 -   technical indicators and overlays
 -   drawing objects
 
-<Canvas>
-    <StockChart />
-</Canvas>
+<Canvas of={IntroStories.Default} />

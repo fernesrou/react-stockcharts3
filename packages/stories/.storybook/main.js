@@ -15,28 +15,6 @@ module.exports = {
         options: {},
     },
     webpackFinal: async (config) => {
-        // Remove any existing MDX rule and add our own
-        config.module.rules = config.module.rules.filter((rule) => {
-            const testStr = rule.test ? rule.test.toString() : "";
-            return !testStr.includes("mdx");
-        });
-
-        // Add MDX support
-        config.module.rules.push({
-            test: /\.mdx$/,
-            use: [
-                {
-                    loader: "@mdx-js/loader",
-                    options: {
-                        providerImportSource: "@storybook/blocks",
-                    },
-                },
-                {
-                    loader: "@storybook/builder-webpack5/dist/loaders/export-order-loader.js",
-                },
-            ],
-        });
-
         // Add TypeScript support
         config.module.rules.push({
             test: /\.(ts|tsx)$/,
