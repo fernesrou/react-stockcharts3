@@ -1,13 +1,22 @@
-import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import StockChart, { MinutesStockChart, SecondsStockChart } from "./StockChart";
 
-export default {
+const meta: Meta<typeof StockChart> = {
     component: StockChart,
     title: "Features/Full Screen",
 };
 
-export const daily = () => <StockChart />;
+export default meta;
+type Story = StoryObj<typeof StockChart>;
 
-export const minutes = () => <MinutesStockChart dateTimeFormat="%H:%M" />;
+export const daily: Story = {
+    render: () => <StockChart />,
+};
 
-export const seconds = () => <SecondsStockChart dateTimeFormat="%H:%M:%S" />;
+export const minutes: Story = {
+    render: () => <MinutesStockChart dateTimeFormat="%H:%M" />,
+};
+
+export const seconds: Story = {
+    render: () => <SecondsStockChart dateTimeFormat="%H:%M:%S" />,
+};

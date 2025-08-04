@@ -1,12 +1,19 @@
-import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { CandlestickSeries } from "../../../../series/src/CandlestickSeries";
 import { Daily, Intraday } from "./BasicCandlestick";
 
-export default {
+const meta: Meta<typeof CandlestickSeries> = {
     component: CandlestickSeries,
     title: "Visualization/Series/Candles",
 };
 
-export const daily = () => <Daily />;
+export default meta;
+type Story = StoryObj<typeof CandlestickSeries>;
 
-export const intraday = () => <Intraday />;
+export const daily: Story = {
+    render: () => <Daily />,
+};
+
+export const intraday: Story = {
+    render: () => <Intraday />,
+};

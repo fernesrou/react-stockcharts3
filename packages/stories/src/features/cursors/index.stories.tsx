@@ -1,9 +1,8 @@
-import { Story } from "@storybook/react";
-import * as React from "react";
-import { Cursor, CursorProps } from "../../../../coordinates/src/Cursor";
+import type { Meta, StoryObj } from "@storybook/react";
+import { Cursor } from "../../../../coordinates/src/Cursor";
 import Cursors from "./Cursors";
 
-export default {
+const meta: Meta<typeof Cursor> = {
     component: Cursor,
     title: "Features/Cursors",
     argTypes: {
@@ -13,8 +12,13 @@ export default {
     },
 };
 
-const Template: Story<CursorProps> = (args) => <Cursors {...args} />;
+export default meta;
+type Story = StoryObj<typeof Cursor>;
 
-export const cursor = Template.bind({});
+export const cursor: Story = {
+    render: (args) => <Cursors {...args} />,
+};
 
-export const crosshair = () => <Cursors crosshair />;
+export const crosshair: Story = {
+    render: () => <Cursors crosshair />,
+};

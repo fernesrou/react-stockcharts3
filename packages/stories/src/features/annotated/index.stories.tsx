@@ -1,12 +1,19 @@
-import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { Annotate } from "@react-financial-charts/annotations";
 import Annotated from "./Annotated";
 
-export default {
+const meta: Meta<typeof Annotate> = {
     component: Annotate,
     title: "Features/Annotate",
 };
 
-export const labels = () => <Annotated labelAnnotation />;
+export default meta;
+type Story = StoryObj<typeof Annotate>;
 
-export const paths = () => <Annotated svgAnnotation />;
+export const labels: Story = {
+    render: () => <Annotated labelAnnotation />,
+};
+
+export const paths: Story = {
+    render: () => <Annotated svgAnnotation />,
+};

@@ -1,9 +1,8 @@
-import { Story } from "@storybook/react";
-import * as React from "react";
-import { YAxis, YAxisProps } from "../../../../axes/src/YAxis";
+import type { Meta, StoryObj } from "@storybook/react";
+import { YAxis } from "../../../../axes/src/YAxis";
 import AxisExample from "./Axis";
 
-export default {
+const meta: Meta<typeof YAxis> = {
     component: YAxis,
     title: "Features/Axis",
     argTypes: {
@@ -20,6 +19,9 @@ export default {
     },
 };
 
-const Template: Story<YAxisProps> = (args) => <AxisExample {...args} />;
+export default meta;
+type Story = StoryObj<typeof YAxis>;
 
-export const yAxis = Template.bind({});
+export const yAxis: Story = {
+    render: (args) => <AxisExample {...args} />,
+};

@@ -1,12 +1,19 @@
-import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { KagiSeries } from "../../../../series/src/KagiSeries";
 import { Daily, Intraday } from "./BasicKagiSeries";
 
-export default {
+const meta: Meta<typeof KagiSeries> = {
     component: KagiSeries,
     title: "Visualization/Series/Kagi",
 };
 
-export const daily = () => <Daily />;
+export default meta;
+type Story = StoryObj<typeof KagiSeries>;
 
-export const intraday = () => <Intraday />;
+export const daily: Story = {
+    render: () => <Daily />,
+};
+
+export const intraday: Story = {
+    render: () => <Intraday />,
+};

@@ -1,10 +1,15 @@
-import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { ScatterSeries } from "../../../../series/src/ScatterSeries";
 import BasicScatterSeries from "./BasicScatterSeries";
 
-export default {
+const meta: Meta<typeof ScatterSeries> = {
     component: ScatterSeries,
     title: "Visualization/Series/Scatter",
 };
 
-export const bubble = () => <BasicScatterSeries />;
+export default meta;
+type Story = StoryObj<typeof ScatterSeries>;
+
+export const bubble: Story = {
+    render: () => <BasicScatterSeries />,
+};

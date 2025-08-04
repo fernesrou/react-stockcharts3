@@ -1,12 +1,19 @@
-import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { MouseCoordinateY } from "@react-financial-charts/coordinates";
 import Coordinates from "./Coordinates";
 
-export default {
+const meta: Meta<typeof MouseCoordinateY> = {
     component: MouseCoordinateY,
     title: "Features/Coordinates",
 };
 
-export const edge = () => <Coordinates />;
+export default meta;
+type Story = StoryObj<typeof MouseCoordinateY>;
 
-export const arrows = () => <Coordinates arrowWidth={10} />;
+export const edge: Story = {
+    render: () => <Coordinates />,
+};
+
+export const arrows: Story = {
+    render: () => <Coordinates arrowWidth={10} />,
+};

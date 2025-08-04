@@ -1,9 +1,8 @@
-import { Story } from "@storybook/react";
-import * as React from "react";
-import { Label, LabelProps } from "../../../../annotations/src/Label";
+import type { Meta, StoryObj } from "@storybook/react";
+import { Label } from "../../../../annotations/src/Label";
 import Annotations from "./Annotations";
 
-export default {
+const meta: Meta<typeof Label> = {
     component: Label,
     title: "Features/Annotations",
     argTypes: {
@@ -16,6 +15,9 @@ export default {
     },
 };
 
-const Template: Story<LabelProps> = (args) => <Annotations {...args} />;
+export default meta;
+type Story = StoryObj<typeof Label>;
 
-export const background = Template.bind({});
+export const background: Story = {
+    render: (args) => <Annotations {...args} />,
+};

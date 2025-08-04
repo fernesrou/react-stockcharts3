@@ -1,10 +1,15 @@
-import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { MACDSeries } from "../../../../series/src/MACDSeries";
 import MACDIndicator from "./MacdIndicator";
 
-export default {
+const meta: Meta<typeof MACDSeries> = {
     title: "Visualization/Indicator/MACD",
     component: MACDSeries,
 };
 
-export const basic = () => <MACDIndicator />;
+export default meta;
+type Story = StoryObj<typeof MACDSeries>;
+
+export const basic: Story = {
+    render: () => <MACDIndicator />,
+};

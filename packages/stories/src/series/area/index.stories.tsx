@@ -1,9 +1,8 @@
-import { Story } from "@storybook/react";
-import * as React from "react";
-import { AreaSeries, AreaSeriesProps } from "../../../../series/src/AreaSeries";
+import type { Meta, StoryObj } from "@storybook/react";
+import { AreaSeries } from "../../../../series/src/AreaSeries";
 import { Daily, Intraday } from "./BasicAreaSeries";
 
-export default {
+const meta: Meta<typeof AreaSeries> = {
     title: "Visualization/Series/Area",
     component: AreaSeries,
     argTypes: {
@@ -12,10 +11,13 @@ export default {
     },
 };
 
-const Template: Story<AreaSeriesProps> = (args) => <Daily {...args} />;
+export default meta;
+type Story = StoryObj<typeof AreaSeries>;
 
-export const daily = Template.bind({});
+export const daily: Story = {
+    render: (args) => <Daily {...args} />,
+};
 
-const IntradayTemplate: Story<AreaSeriesProps> = (args) => <Intraday {...args} />;
-
-export const intraday = IntradayTemplate.bind({});
+export const intraday: Story = {
+    render: (args) => <Intraday {...args} />,
+};

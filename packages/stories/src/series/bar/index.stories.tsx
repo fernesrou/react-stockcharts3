@@ -1,9 +1,8 @@
-import { Story } from "@storybook/react";
-import * as React from "react";
-import { BarSeries, BarSeriesProps } from "../../../../series/src/BarSeries";
+import type { Meta, StoryObj } from "@storybook/react";
+import { BarSeries } from "../../../../series/src/BarSeries";
 import { Daily, Intraday } from "./BasicBarSeries";
 
-export default {
+const meta: Meta<typeof BarSeries> = {
     component: BarSeries,
     title: "Visualization/Series/Bar",
     argTypes: {
@@ -11,10 +10,13 @@ export default {
     },
 };
 
-const Template: Story<BarSeriesProps> = (args) => <Daily {...args} />;
+export default meta;
+type Story = StoryObj<typeof BarSeries>;
 
-export const daily = Template.bind({});
+export const daily: Story = {
+    render: (args) => <Daily {...args} />,
+};
 
-const IntradayTemplate: Story<BarSeriesProps> = (args) => <Intraday {...args} />;
-
-export const intraday = IntradayTemplate.bind({});
+export const intraday: Story = {
+    render: (args) => <Intraday {...args} />,
+};

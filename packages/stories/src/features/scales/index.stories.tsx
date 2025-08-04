@@ -1,13 +1,23 @@
+import type { Meta, StoryObj } from "@storybook/react";
 import { scaleLog, scaleUtc } from "d3-scale";
-import * as React from "react";
 import { Daily } from "./Scales";
 
-export default {
+const meta: Meta<typeof Daily> = {
     title: "Features/Scales",
+    component: Daily,
 };
 
-export const continuousScale = () => <Daily />;
+export default meta;
+type Story = StoryObj<typeof Daily>;
 
-export const utcScale = () => <Daily xScale={scaleUtc()} />;
+export const continuousScale: Story = {
+    render: () => <Daily />,
+};
 
-export const logScale = () => <Daily yScale={scaleLog()} />;
+export const utcScale: Story = {
+    render: () => <Daily xScale={scaleUtc()} />,
+};
+
+export const logScale: Story = {
+    render: () => <Daily yScale={scaleLog()} />,
+};

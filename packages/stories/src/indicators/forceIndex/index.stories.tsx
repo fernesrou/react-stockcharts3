@@ -1,8 +1,8 @@
-import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { forceIndex } from "@react-financial-charts/indicators";
 import ForceIndicator from "./ForceIndicator";
 
-export default {
+const meta: Meta<typeof forceIndex> = {
     title: "Visualization/Indicator/Force Index",
     component: forceIndex,
     parameters: {
@@ -12,4 +12,9 @@ export default {
     },
 };
 
-export const basic = () => <ForceIndicator />;
+export default meta;
+type Story = StoryObj<typeof forceIndex>;
+
+export const basic: Story = {
+    render: () => <ForceIndicator />,
+};

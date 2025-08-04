@@ -1,10 +1,15 @@
-import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { PointAndFigureSeries } from "../../../../series/src/PointAndFigureSeries";
 import { Daily } from "./BasicPointAndFigureSeries";
 
-export default {
+const meta: Meta<typeof PointAndFigureSeries> = {
     component: PointAndFigureSeries,
     title: "Visualization/Series/Point & Figure",
 };
 
-export const daily = () => <Daily />;
+export default meta;
+type Story = StoryObj<typeof PointAndFigureSeries>;
+
+export const daily: Story = {
+    render: () => <Daily />,
+};

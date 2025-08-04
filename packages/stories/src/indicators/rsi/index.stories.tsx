@@ -1,10 +1,15 @@
-import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { RSISeries } from "../../../../series/src/RSISeries";
 import RSIIndicator from "./RsiIndicator";
 
-export default {
+const meta: Meta<typeof RSISeries> = {
     title: "Visualization/Indicator/RSI",
     component: RSISeries,
 };
 
-export const basic = () => <RSIIndicator />;
+export default meta;
+type Story = StoryObj<typeof RSISeries>;
+
+export const basic: Story = {
+    render: () => <RSIIndicator />,
+};

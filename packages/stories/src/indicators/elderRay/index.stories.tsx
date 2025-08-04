@@ -1,10 +1,15 @@
-import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { ElderRaySeries } from "../../../../series/src/ElderRaySeries";
 import ElderRayIndicator from "./ElderRayIndicator";
 
-export default {
+const meta: Meta<typeof ElderRaySeries> = {
     title: "Visualization/Indicator/Elder Ray",
     component: ElderRaySeries,
 };
 
-export const basic = () => <ElderRayIndicator />;
+export default meta;
+type Story = StoryObj<typeof ElderRaySeries>;
+
+export const basic: Story = {
+    render: () => <ElderRayIndicator />,
+};

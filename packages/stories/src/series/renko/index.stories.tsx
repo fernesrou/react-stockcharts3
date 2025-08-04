@@ -1,12 +1,19 @@
-import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { RenkoSeries } from "../../../../series/src/RenkoSeries";
 import { Daily, Intraday } from "./BasicRenkoSeries";
 
-export default {
+const meta: Meta<typeof RenkoSeries> = {
     component: RenkoSeries,
     title: "Visualization/Series/Renko",
 };
 
-export const daily = () => <Daily />;
+export default meta;
+type Story = StoryObj<typeof RenkoSeries>;
 
-export const intraday = () => <Intraday />;
+export const daily: Story = {
+    render: () => <Daily />,
+};
+
+export const intraday: Story = {
+    render: () => <Intraday />,
+};

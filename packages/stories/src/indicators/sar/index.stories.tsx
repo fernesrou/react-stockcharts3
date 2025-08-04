@@ -1,10 +1,15 @@
-import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { SARSeries } from "../../../../series/src/SARSeries";
 import SARIndicator from "./SarIndicator";
 
-export default {
+const meta: Meta<typeof SARSeries> = {
     title: "Visualization/Indicator/SAR",
     component: SARSeries,
 };
 
-export const basic = () => <SARIndicator />;
+export default meta;
+type Story = StoryObj<typeof SARSeries>;
+
+export const basic: Story = {
+    render: () => <SARIndicator />,
+};

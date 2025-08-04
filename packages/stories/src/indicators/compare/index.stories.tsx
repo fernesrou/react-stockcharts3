@@ -1,8 +1,14 @@
-import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import CompareIndicator from "./CompareIndicator";
 
-export default {
+const meta: Meta<typeof CompareIndicator> = {
     title: "Visualization/Indicator/Compare",
+    component: CompareIndicator,
 };
 
-export const basic = () => <CompareIndicator />;
+export default meta;
+type Story = StoryObj<typeof CompareIndicator>;
+
+export const basic: Story = {
+    render: () => <CompareIndicator />,
+};

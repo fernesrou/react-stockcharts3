@@ -1,8 +1,8 @@
-import { Story } from "@storybook/react";
-import { LineSeries, LineSeriesProps } from "../../../../series/src/LineSeries";
+import type { Meta, StoryObj } from "@storybook/react";
+import { LineSeries } from "../../../../series/src/LineSeries";
 import { Daily, Intraday } from "./BasicLineSeries";
 
-export default {
+const meta: Meta<typeof LineSeries> = {
     component: LineSeries,
     title: "Visualization/Series/Line",
     argTypes: {
@@ -10,10 +10,13 @@ export default {
     },
 };
 
-const Template: Story<LineSeriesProps> = (args) => <Daily {...args} />;
+export default meta;
+type Story = StoryObj<typeof LineSeries>;
 
-export const daily = Template.bind({});
+export const daily: Story = {
+    render: (args) => <Daily {...args} />,
+};
 
-const IntradayTemplate: Story<LineSeriesProps> = (args) => <Intraday {...args} />;
-
-export const intraday = IntradayTemplate.bind({});
+export const intraday: Story = {
+    render: (args) => <Intraday {...args} />,
+};

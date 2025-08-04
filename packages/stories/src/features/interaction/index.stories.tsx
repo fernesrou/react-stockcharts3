@@ -1,4 +1,4 @@
-import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import {
     lastVisibleItemBasedZoomAnchor,
     mouseBasedZoomAnchor,
@@ -7,21 +7,38 @@ import {
 import { ChartCanvas } from "../../../../core/src/ChartCanvas";
 import Interaction from "./Interaction";
 
-export default {
+const meta: Meta<typeof ChartCanvas> = {
     component: ChartCanvas,
     title: "Features/Interaction",
 };
 
-export const clamp = () => <Interaction clamp />;
+export default meta;
+type Story = StoryObj<typeof ChartCanvas>;
 
-export const disable = () => <Interaction disableInteraction />;
+export const clamp: Story = {
+    render: () => <Interaction clamp />,
+};
 
-export const disablePan = () => <Interaction disablePan />;
+export const disable: Story = {
+    render: () => <Interaction disableInteraction />,
+};
 
-export const disableZoom = () => <Interaction disableZoom />;
+export const disablePan: Story = {
+    render: () => <Interaction disablePan />,
+};
 
-export const zoomAnchorToMouse = () => <Interaction zoomAnchor={mouseBasedZoomAnchor} />;
+export const disableZoom: Story = {
+    render: () => <Interaction disableZoom />,
+};
 
-export const zoomAnchorToLastVisible = () => <Interaction zoomAnchor={lastVisibleItemBasedZoomAnchor} />;
+export const zoomAnchorToMouse: Story = {
+    render: () => <Interaction zoomAnchor={mouseBasedZoomAnchor} />,
+};
 
-export const zoomAnchorToBounds = () => <Interaction zoomAnchor={rightDomainBasedZoomAnchor} />;
+export const zoomAnchorToLastVisible: Story = {
+    render: () => <Interaction zoomAnchor={lastVisibleItemBasedZoomAnchor} />,
+};
+
+export const zoomAnchorToBounds: Story = {
+    render: () => <Interaction zoomAnchor={rightDomainBasedZoomAnchor} />,
+};
