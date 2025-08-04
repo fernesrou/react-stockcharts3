@@ -43,6 +43,10 @@
   "workspaces": [
     "packages/*"
   ],
+  "overrides": {
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.13.1",
     "@mdx-js/loader": "^3.1.0",
@@ -86,6 +90,8 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
     "@react-financial-charts/annotations": "file:packages/annotations",
     "@react-financial-charts/axes": "file:packages/axes",
     "@react-financial-charts/coordinates": "file:packages/coordinates",
