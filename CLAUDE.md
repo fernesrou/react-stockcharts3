@@ -74,3 +74,30 @@ Tests use Jest and are located in `__tests__` directories within each package. R
 
 ### Storybook
 Examples and documentation are built using Storybook. Stories are located in `packages/stories/src/` organized by feature and component type.
+
+## React 18 Modernization
+
+This project has been modernized to work with React 18. Key documents:
+
+- **`REACT_18_MODERNIZATION_PLAN.md`** - Comprehensive plan for React 18 compatibility, addressing flickering issues caused by Strict Mode and concurrent rendering
+- **`REACT_18_CODE_EXAMPLES.md`** - Specific code implementations and examples for React 18 optimization
+
+### Key React 18 Considerations
+
+- **Flickering Prevention**: Charts use optimized canvas operations that work with React 18's automatic batching
+- **Strict Mode**: Development environments should disable Strict Mode for smooth chart interactions
+- **Concurrent Features**: Canvas operations are designed to be concurrent-safe while maintaining performance
+
+### Development Setup
+
+For development with Storybook, ensure Strict Mode is disabled to prevent chart flickering:
+
+```javascript
+// .storybook/main.js
+framework: {
+  name: "@storybook/react-webpack5",
+  options: {
+    strictMode: false, // Critical for chart performance
+  },
+}
+```
