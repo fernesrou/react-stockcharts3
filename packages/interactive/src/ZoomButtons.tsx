@@ -178,7 +178,7 @@ export class ZoomButtons extends React.Component<ZoomButtonsProps> {
                     if (steps.length === 0) {
                         return;
                     }
-                    
+
                     const domain = steps.shift();
                     if (domain) {
                         // Use flushSync for immediate zoom updates
@@ -186,7 +186,7 @@ export class ZoomButtons extends React.Component<ZoomButtonsProps> {
                             xAxisZoom(domain);
                         });
                     }
-                    
+
                     if (steps.length > 0) {
                         requestAnimationFrame(() => animateZoom(steps));
                     }

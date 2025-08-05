@@ -255,7 +255,7 @@ export class EventCapture extends React.Component<EventCaptureProps, EventCaptur
 
                 this.dx = 0;
                 this.dy = 0;
-                
+
                 // Use React 18's automatic batching for state updates
                 React.startTransition(() => {
                     this.setState({
