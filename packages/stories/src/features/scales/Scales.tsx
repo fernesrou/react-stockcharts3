@@ -10,7 +10,7 @@ import {
     timeFormat,
     withDeviceRatio,
     withSize,
-} from "react-financial-charts";
+} from "react-stockcharts3";
 import { IOHLCData, withOHLCData } from "../../data";
 
 interface ChartProps {

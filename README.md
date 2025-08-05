@@ -6,7 +6,7 @@
 
 ![ci](https://github.com/reactivemarkets/react-stockcharts3/workflows/ci/badge.svg)
 [![codecov](https://codecov.io/gh/reactivemarkets/react-stockcharts3/branch/master/graph/badge.svg)](https://codecov.io/gh/reactivemarkets/react-stockcharts3)
- [![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/reactivemarkets/react-stockcharts3/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/react-stockcharts3.svg?style=flat)](https://www.npmjs.com/package/react-stockcharts3)
+[![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/reactivemarkets/react-stockcharts3/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/react-stockcharts3.svg?style=flat)](https://www.npmjs.com/package/react-stockcharts3)
 
 Charts dedicated to finance.
 
@@ -14,49 +14,49 @@ The aim with this project is create financial charts that work out of the box.
 
 ## Features
 
-- integrates multiple chart types
-- technical indicators and overlays
-- drawing objects
+-   Integrates multiple chart types
+-   Technical indicators and overlays
+-   Drawing objects
 
 ### Chart types
 
-- Scatter
-- Area
-- Line
-- Candlestick
-- OHLC
-- HeikenAshi
-- Renko
-- Kagi
-- Point & Figure
+-   Scatter
+-   Area
+-   Line
+-   Candlestick
+-   OHLC
+-   HeikenAshi
+-   Renko
+-   Kagi
+-   Point & Figure
 
 ### Indicators
 
-- EMA, SMA, WMA, TMA
-- Bollinger band
-- SAR
-- MACD
-- RSI
-- ATR
-- Stochastic (fast, slow, full)
-- ForceIndex
-- ElderRay
-- Elder Impulse
+-   EMA, SMA, WMA, TMA
+-   Bollinger band
+-   SAR
+-   MACD
+-   RSI
+-   ATR
+-   Stochastic (fast, slow, full)
+-   ForceIndex
+-   ElderRay
+-   Elder Impulse
 
 ### Interactive Indicators
 
-- Trendline
-- Fibonacci Retracements
-- Gann Fan
-- Channel
-- Linear regression channel
+-   Trendline
+-   Fibonacci Retracements
+-   Gann Fan
+-   Channel
+-   Linear regression channel
 
 ---
 
 ## Installation
 
 ```sh
-npm install react-financial-charts
+npm install react-stockcharts3
 ```
 
 ## Documentation
@@ -72,8 +72,8 @@ This project is a mono-repo that uses [Lerna](https://lerna.js.org/) to manage d
 To get started run:
 
 ```bash
-git clone https://github.com/react-financial/react-financial-charts.git
-cd react-financial-charts
+git clone https://github.com/fernesrou/react-stockcharts3.git
+cd react-stockcharts3
 npm ci
 npm run build
 ```
@@ -86,23 +86,19 @@ npm start
 
 ## Roadmap
 
-- [x] Convert to typescript
-- [x] Bump dependencies to latest
-- [x] Remove React 16 warnings
-- [x] Add CI
-- [x] Fix passive scrolling issues
-- [x] Implement PRs from react-stockcharts
-- [x] Add all typings
-- [x] Move examples to storybook
-- [x] Add all series' to storybook
-- [x] Split project into multiple packages
-- [x] Fix issues with empty datasets
-- [x] Correct all class props
-- [x] Migrate to new React Context API
-- [x] Remove all UNSAFE methods
-- [ ] Add documentation to storybook
-- [ ] Add full test suite
-
-## LICENSE
-
-[![FOSSA Status](https://app.fossa.com/api/projects/custom%2B13613%2Fgit%40github.com%3Areactivemarkets%2Freact-financial-charts.git.svg?type=large)](https://app.fossa.com/projects/custom%2B13613%2Fgit%40github.com%3Areactivemarkets%2Freact-financial-charts.git?ref=badge_large)
+-   [x] Convert to typescript
+-   [x] Bump dependencies to latest
+-   [x] Remove React 16 warnings
+-   [x] Add CI
+-   [x] Fix passive scrolling issues
+-   [x] Implement PRs from react-stockcharts
+-   [x] Add all typings
+-   [x] Move examples to storybook
+-   [x] Add all series' to storybook
+-   [x] Split project into multiple packages
+-   [x] Fix issues with empty datasets
+-   [x] Correct all class props
+-   [x] Migrate to new React Context API
+-   [x] Remove all UNSAFE methods
+-   [ ] Add documentation to storybook
+-   [ ] Add full test suite

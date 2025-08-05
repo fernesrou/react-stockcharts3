@@ -10,7 +10,7 @@ import {
     withSize,
     XAxis,
     YAxis,
-} from "react-financial-charts";
+} from "react-stockcharts3";
 import { IOHLCData, withUpdatingData, withOHLCData } from "../../data";
 
 interface ChartProps {

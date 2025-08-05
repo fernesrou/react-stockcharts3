@@ -5,6 +5,6 @@ addons.setConfig({
     theme: create({
         base: "light",
         brandTitle: "React StockCharts 3",
-        brandUrl: "https://github.com/reactivemarkets/react-stockcharts3",
+        brandUrl: "https://github.com/fernesrou/react-stockcharts3",
     }),
 });
