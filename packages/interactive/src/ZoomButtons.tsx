@@ -2,6 +2,7 @@ import { ChartContext, ChartContextType, last } from "@react-financial-charts/co
 import { interpolateNumber } from "d3-interpolate";
 import { ScaleContinuousNumeric } from "d3-scale";
 import * as React from "react";
+import { flushSync } from "react-dom";
 
 export interface ZoomButtonsProps {
     readonly fill: string;
@@ -162,24 +163,37 @@ export class ZoomButtons extends React.Component<ZoomButtonsProps> {
             .map((x: number) => cx + (x - cx) * c)
             .map(scale.invert);
 
-        const left = interpolateNumber(start, newStart);
-        const right = interpolateNumber(end, newEnd);
-
-        const foo = [0.25, 0.3, 0.5, 0.6, 0.75, 1].map((i) => {
-            return [left(i), right(i)];
-        });
-
         if (xAxisZoom) {
-            this.interval = window.setInterval(() => {
-                const domain = foo.shift();
-                if (domain) {
-                    xAxisZoom(domain);
-                }
-                if (foo.length === 0) {
-                    clearInterval(this.interval);
-                    delete this.interval;
-                }
-            }, 10);
+            // Use React 18's startTransition for smoother zoom animations
+            React.startTransition(() => {
+                const left = interpolateNumber(start, newStart);
+                const right = interpolateNumber(end, newEnd);
+
+                const animationSteps = [0.25, 0.3, 0.5, 0.6, 0.75, 1].map((i) => {
+                    return [left(i), right(i)];
+                });
+
+                // Use requestAnimationFrame instead of setInterval for smoother animations
+                const animateZoom = (steps: number[][]) => {
+                    if (steps.length === 0) {
+                        return;
+                    }
+                    
+                    const domain = steps.shift();
+                    if (domain) {
+                        // Use flushSync for immediate zoom updates
+                        flushSync(() => {
+                            xAxisZoom(domain);
+                        });
+                    }
+                    
+                    if (steps.length > 0) {
+                        requestAnimationFrame(() => animateZoom(steps));
+                    }
+                };
+
+                animateZoom(animationSteps);
+            });
         }
     };
 }

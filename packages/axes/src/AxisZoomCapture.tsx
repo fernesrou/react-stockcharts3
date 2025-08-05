@@ -15,6 +15,7 @@ import { mean } from "d3-array";
 import { ScaleContinuousNumeric } from "d3-scale";
 import { select, pointer } from "d3-selection";
 import * as React from "react";
+import { flushSync } from "react-dom";
 
 export interface AxisZoomCaptureProps {
     readonly axisZoomCallback?: (domain: number[]) => void;
@@ -144,7 +145,10 @@ export class AxisZoomCapture extends React.Component<AxisZoomCaptureProps, AxisZ
             ) {
                 const { axisZoomCallback } = this.props;
                 if (axisZoomCallback !== undefined) {
-                    axisZoomCallback(newDomain);
+                    // Use flushSync for immediate axis zoom updates to prevent flickering
+                    flushSync(() => {
+                        axisZoomCallback(newDomain);
+                    });
                 }
             }
         }
@@ -167,11 +171,14 @@ export class AxisZoomCapture extends React.Component<AxisZoomCaptureProps, AxisZ
 
             const startXY = touchPosition(getTouchProps(event.touches[0]), event);
 
-            this.setState({
-                startPosition: {
-                    startScale,
-                    startXY,
-                },
+            // Use React 18's automatic batching for smooth touch interactions
+            React.startTransition(() => {
+                this.setState({
+                    startPosition: {
+                        startScale,
+                        startXY,
+                    },
+                });
             });
         }
     };
@@ -195,11 +202,14 @@ export class AxisZoomCapture extends React.Component<AxisZoomCaptureProps, AxisZ
 
             const startXY = mousePosition(event);
 
-            this.setState({
-                startPosition: {
-                    startXY,
-                    startScale,
-                },
+            // Use React 18's automatic batching for smooth mouse interactions
+            React.startTransition(() => {
+                this.setState({
+                    startPosition: {
+                        startXY,
+                        startScale,
+                    },
+                });
             });
         }
     };
@@ -223,8 +233,11 @@ export class AxisZoomCapture extends React.Component<AxisZoomCaptureProps, AxisZ
 
         select(d3Window(container)).on(MOUSEMOVE, null).on(MOUSEUP, null);
 
-        this.setState({
-            startPosition: null,
+        // Use React 18's automatic batching for state cleanup
+        React.startTransition(() => {
+            this.setState({
+                startPosition: null,
+            });
         });
 
         onContextMenu(event, mouseXY);

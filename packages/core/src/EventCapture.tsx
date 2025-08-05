@@ -1,6 +1,7 @@
 import { ScaleContinuousNumeric, ScaleTime } from "d3-scale";
 import { pointer, pointers, select } from "d3-selection";
 import * as React from "react";
+import { flushSync } from "react-dom";
 
 import {
     d3Window,
@@ -220,8 +221,11 @@ export class EventCapture extends React.Component<EventCaptureProps, EventCaptur
         if (zoom && this.focus && yZoom && !panInProgress) {
             const zoomDir = e.deltaY > 0 ? 1 : -1;
 
+            // Use flushSync for immediate zoom updates to prevent flickering
             if (onZoom !== undefined) {
-                onZoom(zoomDir, mouseXY, e);
+                flushSync(() => {
+                    onZoom(zoomDir, mouseXY, e);
+                });
             }
         } else if (this.focus) {
             if (this.shouldPan() && this.state.panStart !== undefined) {
@@ -241,6 +245,7 @@ export class EventCapture extends React.Component<EventCaptureProps, EventCaptur
                 this.dy += e.deltaY;
                 const dxdy = { dx: this.dx, dy: this.dy };
 
+                // Batch pan updates to prevent flickering
                 if (onPan !== undefined) {
                     onPan(mouseXY, panStartXScale, dxdy, chartsToPan, e);
                 }
@@ -250,13 +255,17 @@ export class EventCapture extends React.Component<EventCaptureProps, EventCaptur
 
                 this.dx = 0;
                 this.dy = 0;
-                this.setState({
-                    panInProgress: true,
-                    panStart: {
-                        panStartXScale: xScale,
-                        panOrigin: mouseXY,
-                        chartsToPan: currentCharts,
-                    },
+                
+                // Use React 18's automatic batching for state updates
+                React.startTransition(() => {
+                    this.setState({
+                        panInProgress: true,
+                        panStart: {
+                            panStartXScale: xScale,
+                            panOrigin: mouseXY,
+                            chartsToPan: currentCharts,
+                        },
+                    });
                 });
             }
             this.queuePanEnd(e);
@@ -435,23 +444,28 @@ export class EventCapture extends React.Component<EventCaptureProps, EventCaptur
             const pan = panEnabled && !somethingSelected;
 
             if (pan) {
-                this.setState({
-                    panInProgress: pan,
-                    panStart: {
-                        panStartXScale: xScale,
-                        panOrigin: mouseXY,
-                        chartsToPan: currentCharts,
-                    },
+                // Use React 18's automatic batching for smooth interactions
+                React.startTransition(() => {
+                    this.setState({
+                        panInProgress: pan,
+                        panStart: {
+                            panStartXScale: xScale,
+                            panOrigin: mouseXY,
+                            chartsToPan: currentCharts,
+                        },
+                    });
                 });
 
                 const win = d3Window(this.ref.current);
                 select(win).on(MOUSEMOVE, this.handlePan).on(MOUSEUP, this.handlePanEnd);
             } else if (somethingSelected) {
-                this.setState({
-                    panInProgress: false,
-                    dragInProgress: true,
-                    panStart: undefined,
-                    dragStartPosition: mouseXY,
+                React.startTransition(() => {
+                    this.setState({
+                        panInProgress: false,
+                        dragInProgress: true,
+                        panStart: undefined,
+                        dragStartPosition: mouseXY,
+                    });
                 });
 
                 const { onDragStart } = this.props;
@@ -531,9 +545,12 @@ export class EventCapture extends React.Component<EventCaptureProps, EventCaptur
                 }
             }
 
-            this.setState({
-                panInProgress: false,
-                panStart: undefined,
+            // Use React 18's automatic batching for smooth state cleanup
+            React.startTransition(() => {
+                this.setState({
+                    panInProgress: false,
+                    panStart: undefined,
+                });
             });
         }
     };
