@@ -4,9 +4,9 @@
 
 > **Note:** v1 is a fully breaking change with large parts, if not all, rewritten. Do not expect the same API! although the same features should exist.
 
-![ci](https://github.com/reactivemarkets/react-stockcharts3/workflows/ci/badge.svg)
-[![codecov](https://codecov.io/gh/reactivemarkets/react-stockcharts3/branch/master/graph/badge.svg)](https://codecov.io/gh/reactivemarkets/react-stockcharts3)
-[![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/reactivemarkets/react-stockcharts3/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/react-stockcharts3.svg?style=flat)](https://www.npmjs.com/package/react-stockcharts3)
+![ci](https://github.com/fernesrou/react-stockcharts3/workflows/ci/badge.svg)
+[![codecov](https://codecov.io/gh/fernesrou/react-stockcharts3/branch/master/graph/badge.svg)](https://codecov.io/gh/fernesrou/react-stockcharts3)
+[![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/fernesrou/react-stockcharts3/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/react-stockcharts3.svg?style=flat)](https://www.npmjs.com/package/react-stockcharts3)
 
 Charts dedicated to finance.
 
