@@ -61,7 +61,9 @@ npm install react-stockcharts3
 
 ## Documentation
 
-[Stories](https://react-financial.github.io/react-financial-charts/)
+[Stories](#)
+
+To be implemented in the near future
 
 ## Contributing
 
