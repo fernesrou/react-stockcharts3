@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/react-financial/react-financial-charts/compare/v2.0.1...v1.0.0) (2025-08-05)
+
+-   Complete rebrand from react-financial-charts to react-stockcharts3 ([5e0a837](https://github.com/react-financial/react-financial-charts/commit/5e0a837bb57832d2e66fe2c9b5bc707264af9230))
+-   Modernize React dependencies to require React 18+ only ([96849af](https://github.com/react-financial/react-financial-charts/commit/96849af0bbc078699f96f343b1c915a0cccb180f))
+
+### BREAKING CHANGES
+
+-   \*\* This is a complete rebrand requiring users to update all imports:
+
+*   `react-financial-charts` → `react-stockcharts3`
+*   `@react-financial-charts/*` → `@react-stockcharts3/*`
+
+Ready for publication to NPM under the new react-stockcharts3 namespace.
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
+-   Drop support for React 16 and 17
+
+Changes:
+
+-   Updated all peerDependencies from "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0" to "^18.0.0 || ^19.0.0"
+-   Added React 18.3.0 as explicit dependency in root package.json
+-   Added overrides to ensure React 18.3+ across all packages
+-   Updated stories package to use React 18.3.0
+-   All packages now require React 18+ for optimal performance and compatibility
+
+This change aligns with our React 18 modernization plan and ensures:
+
+-   No flickering issues in development
+-   Access to React 18 concurrent features
+-   Future compatibility with React 19
+-   Consistent dependency resolution across monorepo
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
 ## [2.0.1](https://github.com/markmcdowell/react-financial-charts/compare/v2.0.0...v2.0.1) (2023-05-13)
 
 **Note:** Version bump only for package @react-financial-charts/stories
