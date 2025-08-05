@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import {
-    AlternatingFillAreaSeries,
-} from "../../../../series/src/AlternatingFillAreaSeries";
+import { AlternatingFillAreaSeries } from "../../../../series/src/AlternatingFillAreaSeries";
 import { Daily, Intraday } from "./BasicBaselineSeries";
 
 const meta: Meta<typeof AlternatingFillAreaSeries> = {

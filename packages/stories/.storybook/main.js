@@ -4,7 +4,7 @@ module.exports = {
     stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)", "../src/**/*.mdx"],
     typescript: {
         check: false,
-        reactDocgen: "react-docgen-typescript",
+        reactDocgen: false, // Disabled to prevent React 18 parser errors
         reactDocgenTypescriptOptions: {
             shouldExtractLiteralValuesFromEnum: true,
             propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
@@ -12,7 +12,9 @@ module.exports = {
     },
     framework: {
         name: "@storybook/react-webpack5",
-        options: {},
+        options: {
+            strictMode: false, // CRITICAL: Disable to prevent chart flickering in React 18
+        },
     },
     webpackFinal: async (config) => {
         // Add TypeScript support

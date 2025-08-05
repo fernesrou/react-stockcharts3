@@ -1,6 +1,7 @@
 import { extent as d3Extent, max, min } from "d3-array";
 import { ScaleContinuousNumeric, ScaleTime } from "d3-scale";
 import * as React from "react";
+import { flushSync } from "react-dom";
 import { clearCanvas, functor, head, identity, isDefined, isNotDefined, last, shallowEqual } from "./utils";
 import { IZoomAnchorOptions, mouseBasedZoomAnchor } from "./zoom";
 import {
@@ -462,6 +463,12 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
     private waitingForPanAnimationFrame?: boolean;
     private waitingForMouseMoveAnimationFrame?: boolean;
 
+    // React 18 optimization properties
+    private isStrictMode = false;
+    private strictModeRenderCount = 0;
+    private canvasUpdateQueue: (() => void)[] = [];
+    private isProcessingQueue = false;
+
     // tslint:disable-next-line: variable-name
     private hackyWayToStopPanBeyondBounds__plotData?: any[] | null;
     // tslint:disable-next-line: variable-name
@@ -470,6 +477,15 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
     public constructor(props: ChartCanvasProps<TXAxis>) {
         super(props);
         this.state = resetChart(props);
+
+        // Detect React Strict Mode by tracking constructor calls
+        this.strictModeRenderCount++;
+        setTimeout(() => {
+            if (this.strictModeRenderCount > 1) {
+                this.isStrictMode = true;
+                console.info("[React Financial Charts] React Strict Mode detected - using optimized canvas rendering");
+            }
+        }, 0);
     }
 
     public static getDerivedStateFromProps<TXAxis extends number | Date>(
@@ -720,7 +736,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
 
             this.finalPinch = finalPinch;
 
-            requestAnimationFrame(() => {
+            this.safeCanvasUpdate(() => {
                 this.clearBothCanvas();
                 this.draw({ trigger: "pinchzoom" });
                 this.waitingForPinchZoomAnimationFrame = false;
@@ -826,25 +842,28 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
 
         const { onLoadAfter, onLoadBefore } = this.props;
 
-        this.setState(
-            {
-                xScale,
-                plotData,
-                chartConfigs,
-            },
-            () => {
-                if (scale_start < data_start) {
-                    if (onLoadBefore !== undefined) {
-                        onLoadBefore(scale_start, data_start);
+        // React 18 optimization: Use safeCanvasUpdate for zoom operations
+        this.safeCanvasUpdate(() => {
+            this.setState(
+                {
+                    xScale,
+                    plotData,
+                    chartConfigs,
+                },
+                () => {
+                    if (scale_start < data_start) {
+                        if (onLoadBefore !== undefined) {
+                            onLoadBefore(scale_start, data_start);
+                        }
                     }
-                }
-                if (data_end < scale_end) {
-                    if (onLoadAfter !== undefined) {
-                        onLoadAfter(data_end, scale_end);
+                    if (data_end < scale_end) {
+                        if (onLoadAfter !== undefined) {
+                            onLoadAfter(data_end, scale_end);
+                        }
                     }
-                }
-            },
-        );
+                },
+            );
+        });
     };
 
     public xAxisZoom = (newDomain: any) => {
@@ -862,25 +881,28 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
 
         const { onLoadAfter, onLoadBefore } = this.props;
 
-        this.setState(
-            {
-                xScale,
-                plotData,
-                chartConfigs,
-            },
-            () => {
-                if (scale_start < data_start) {
-                    if (onLoadBefore !== undefined) {
-                        onLoadBefore(scale_start, data_start);
+        // React 18 optimization: Use safeCanvasUpdate for axis zoom operations
+        this.safeCanvasUpdate(() => {
+            this.setState(
+                {
+                    xScale,
+                    plotData,
+                    chartConfigs,
+                },
+                () => {
+                    if (scale_start < data_start) {
+                        if (onLoadBefore !== undefined) {
+                            onLoadBefore(scale_start, data_start);
+                        }
                     }
-                }
-                if (data_end < scale_end) {
-                    if (onLoadAfter !== undefined) {
-                        onLoadAfter(data_end, scale_end);
+                    if (data_end < scale_end) {
+                        if (onLoadAfter !== undefined) {
+                            onLoadAfter(data_end, scale_end);
+                        }
                     }
-                }
-            },
-        );
+                },
+            );
+        });
     };
 
     public yAxisZoom = (chartId: string, newDomain: any) => {
@@ -901,8 +923,11 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
             }
         });
 
-        this.setState({
-            chartConfigs,
+        // React 18 optimization: Use safeCanvasUpdate for Y-axis zoom operations
+        this.safeCanvasUpdate(() => {
+            this.setState({
+                chartConfigs,
+            });
         });
     };
 
@@ -915,6 +940,59 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
             each.listener(type, props, state, e);
         });
     }
+
+    /**
+     * React 18 optimized canvas update method
+     * Uses flushSync to prevent automatic batching that causes flickering
+     */
+    private safeCanvasUpdate = (operation: () => void) => {
+        if (this.isStrictMode) {
+            // In Strict Mode, use flushSync to bypass automatic batching
+            try {
+                flushSync(() => {
+                    operation();
+                });
+            } catch (error) {
+                console.warn("[React Financial Charts] flushSync failed, falling back to direct execution:", error);
+                operation();
+            }
+        } else {
+            // In normal mode, use queue to prevent overlapping operations
+            this.canvasUpdateQueue.push(operation);
+            this.processCanvasQueue();
+        }
+    };
+
+    /**
+     * Process queued canvas operations to prevent overlapping renders
+     */
+    private processCanvasQueue = () => {
+        if (this.isProcessingQueue || this.canvasUpdateQueue.length === 0) {
+            return;
+        }
+
+        this.isProcessingQueue = true;
+
+        const processNext = () => {
+            const operation = this.canvasUpdateQueue.shift();
+            if (operation) {
+                operation();
+            }
+
+            if (this.canvasUpdateQueue.length > 0) {
+                // Use scheduler.postTask if available for better performance
+                if ("scheduler" in window && "postTask" in (window as any).scheduler) {
+                    (window as any).scheduler.postTask(processNext, { priority: "user-blocking" });
+                } else {
+                    requestAnimationFrame(processNext);
+                }
+            } else {
+                this.isProcessingQueue = false;
+            }
+        };
+
+        processNext();
+    };
 
     public draw = (props: { trigger: string } | { force: boolean }) => {
         this.subscriptions.forEach((each) => {
@@ -1008,7 +1086,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
             currentItem: newState.currentItem,
             currentCharts: newState.currentCharts,
         };
-        requestAnimationFrame(() => {
+        this.safeCanvasUpdate(() => {
             this.waitingForPanAnimationFrame = false;
             this.clearBothCanvas();
             this.draw({ trigger: "pan" });
@@ -1032,7 +1110,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
 
         this.triggerEvent("panend", state, e);
 
-        requestAnimationFrame(() => {
+        this.safeCanvasUpdate(() => {
             const { xAccessor, fullData } = this.state;
 
             const firstItem = head(fullData);
@@ -1109,7 +1187,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
             currentItem,
             currentCharts,
         };
-        requestAnimationFrame(() => {
+        this.safeCanvasUpdate(() => {
             this.clearMouseCanvas();
             this.draw({ trigger: "mousemove" });
             this.waitingForMouseMoveAnimationFrame = false;
@@ -1152,7 +1230,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
             currentCharts,
         };
 
-        requestAnimationFrame(() => {
+        this.safeCanvasUpdate(() => {
             this.clearMouseCanvas();
             this.draw({ trigger: "drag" });
         });
@@ -1161,7 +1239,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
     public handleDragEnd = ({ mouseXY }: { mouseXY: number[] }, e: React.MouseEvent) => {
         this.triggerEvent("dragend", { mouseXY }, e);
 
-        requestAnimationFrame(() => {
+        this.safeCanvasUpdate(() => {
             this.clearMouseCanvas();
             this.draw({ trigger: "dragend" });
         });
@@ -1170,7 +1248,7 @@ export class ChartCanvas<TXAxis extends number | Date> extends React.Component<
     public handleClick = (_: number[], e: React.MouseEvent) => {
         this.triggerEvent("click", this.mutableState, e);
 
-        requestAnimationFrame(() => {
+        this.safeCanvasUpdate(() => {
             this.clearMouseCanvas();
             this.draw({ trigger: "click" });
         });
