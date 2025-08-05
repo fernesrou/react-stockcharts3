@@ -45,5 +45,5 @@
         "@react-stockcharts3/core": "^1.1.1",
         "@types/d3-scale": "^3.2.2"
     },
-    "gitHead": "1af3fbf038360f9ce3b0ae235e0c7d57d29e73da"
+    "gitHead": "b0cddbfdcf2f199ca79cde39ef58d684acfcd4c2"
 }
