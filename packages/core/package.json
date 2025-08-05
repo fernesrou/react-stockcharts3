@@ -1,6 +1,6 @@
 {
     "name": "@react-stockcharts3/core",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "Core code for react-stockcharts3",
     "publishConfig": {
         "access": "public"
