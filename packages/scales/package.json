@@ -1,7 +1,7 @@
 {
-    "name": "@react-financial-charts/scales",
+    "name": "@react-stockcharts3/scales",
     "version": "2.0.0",
-    "description": "Scales for react-financial-charts",
+    "description": "Scales for react-stockcharts3",
     "publishConfig": {
         "access": "public"
     },
@@ -26,10 +26,10 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/reactivemarkets/react-financial-charts.git"
+        "url": "https://github.com/reactivemarkets/react-stockcharts3.git"
     },
     "bugs": {
-        "url": "https://github.com/reactivemarkets/react-financial-charts/issues"
+        "url": "https://github.com/reactivemarkets/react-stockcharts3/issues"
     },
     "scripts": {
         "build": "npm run clean && npm run compile",
@@ -38,7 +38,7 @@
         "watch": "tsc -p tsconfig.json --watch --preserveWatchOutput"
     },
     "dependencies": {
-        "@react-financial-charts/core": "file:../core",
+        "@react-stockcharts3/core": "file:../core",
         "d3-array": "^2.9.1",
         "d3-scale": "^4.0.2",
         "d3-time-format": "^3.0.0"

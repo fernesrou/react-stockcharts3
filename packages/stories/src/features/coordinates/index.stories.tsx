@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { MouseCoordinateY } from "@react-financial-charts/coordinates";
+import { MouseCoordinateY } from "@react-stockcharts3/coordinates";
 import Coordinates from "./Coordinates";
 
 const meta: Meta<typeof MouseCoordinateY> = {

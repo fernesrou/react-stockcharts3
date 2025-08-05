@@ -1,12 +1,12 @@
-# React Financial Charts
+# React StockCharts 3
 
 > **Note:** this repo is a fork of [react-stockcharts](https://github.com/rrag/react-stockcharts), renamed, converted to typescript and bug fixes applied due to the original project being unmaintained.
 
 > **Note:** v1 is a fully breaking change with large parts, if not all, rewritten. Do not expect the same API! although the same features should exist.
 
-![ci](https://github.com/react-financial/react-financial-charts/workflows/ci/badge.svg)
-[![codecov](https://codecov.io/gh/reactivemarkets/react-financial-charts/branch/master/graph/badge.svg)](https://codecov.io/gh/reactivemarkets/react-financial-charts)
- [![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/react-financial/react-financial-charts/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/react-financial-charts.svg?style=flat)](https://www.npmjs.com/package/react-financial-charts)
+![ci](https://github.com/reactivemarkets/react-stockcharts3/workflows/ci/badge.svg)
+[![codecov](https://codecov.io/gh/reactivemarkets/react-stockcharts3/branch/master/graph/badge.svg)](https://codecov.io/gh/reactivemarkets/react-stockcharts3)
+ [![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/reactivemarkets/react-stockcharts3/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/react-stockcharts3.svg?style=flat)](https://www.npmjs.com/package/react-stockcharts3)
 
 Charts dedicated to finance.
 

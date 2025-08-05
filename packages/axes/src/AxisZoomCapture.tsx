@@ -10,7 +10,7 @@ import {
     TOUCHEND,
     TOUCHMOVE,
     touchPosition,
-} from "@react-financial-charts/core";
+} from "@react-stockcharts3/core";
 import { mean } from "d3-array";
 import { ScaleContinuousNumeric } from "d3-scale";
 import { select, pointer } from "d3-selection";

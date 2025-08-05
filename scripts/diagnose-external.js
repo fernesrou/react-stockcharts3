@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Diagnostic script for external projects using React Financial Charts
+ * Diagnostic script for external projects using React StockCharts 3
  * Run this in your project to identify React version conflicts
  */
 
@@ -9,7 +9,7 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-console.log('🔍 React Financial Charts - External Project Diagnostics\n');
+console.log('🔍 React StockCharts 3 - External Project Diagnostics\n');
 
 function checkReactVersions() {
   console.log('📋 Checking React versions...');

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { GenericChartComponent } from "@react-financial-charts/core";
+import { GenericChartComponent } from "@react-stockcharts3/core";
 
 export interface AnnotateProps {
     readonly className?: string;

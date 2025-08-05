@@ -1,6 +1,6 @@
 import { ScaleContinuousNumeric } from "d3-scale";
 import * as React from "react";
-import { isDefined, isNotDefined, getAxisCanvas, GenericChartComponent } from "@react-financial-charts/core";
+import { isDefined, isNotDefined, getAxisCanvas, GenericChartComponent } from "@react-stockcharts3/core";
 
 export interface PointAndFigureSeriesProps {
     readonly className?: string;

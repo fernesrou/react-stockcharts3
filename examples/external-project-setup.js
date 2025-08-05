@@ -1,12 +1,12 @@
 /**
- * Example setup for external projects using React Financial Charts
+ * Example setup for external projects using React StockCharts 3
  * Copy this code to your project and modify as needed
  */
 
 import React from 'react';
-import { Chart, ChartCanvas } from 'react-financial-charts';
-import { CandlestickSeries } from '@react-financial-charts/series';
-import { XAxis, YAxis } from '@react-financial-charts/axes';
+import { Chart, ChartCanvas } from 'react-stockcharts3';
+import { CandlestickSeries } from '@react-stockcharts3/series';
+import { XAxis, YAxis } from '@react-stockcharts3/axes';
 import { scaleTime } from 'd3-scale';
 
 // Sample data - replace with your actual data
@@ -132,7 +132,7 @@ class ChartErrorBoundary extends React.Component {
     // Check if it's a React version conflict
     if (error.message.includes('older version of React')) {
       console.error('🔥 REACT VERSION CONFLICT DETECTED!');
-      console.error('👉 Run: npx react-financial-charts diagnose');
+      console.error('👉 Run: npx react-stockcharts3 diagnose');
       console.error('📖 See: EXTERNAL_INSTALLATION.md');
     }
   }
@@ -154,7 +154,7 @@ class ChartErrorBoundary extends React.Component {
             <div>
               <p><strong>This is likely a React version conflict!</strong></p>
               <ol>
-                <li>Run: <code>npx react-financial-charts diagnose</code></li>
+                <li>Run: <code>npx react-stockcharts3 diagnose</code></li>
                 <li>Check: <code>EXTERNAL_INSTALLATION.md</code></li>
                 <li>Ensure single React version in your project</li>
               </ol>
@@ -175,7 +175,7 @@ class ChartErrorBoundary extends React.Component {
 function App() {
   return (
     <div className="App">
-      <h1>React Financial Charts - External Project</h1>
+      <h1>React StockCharts 3 - External Project</h1>
       
       <ChartErrorBoundary>
         <FinancialChart />
@@ -192,7 +192,7 @@ function App() {
         <p>If charts don't render or you see errors:</p>
         <ol>
           <li>Check browser console for specific errors</li>
-          <li>Run diagnostic: <code>npx react-financial-charts diagnose</code></li>
+          <li>Run diagnostic: <code>npx react-stockcharts3 diagnose</code></li>
           <li>Review setup guide: <code>EXTERNAL_INSTALLATION.md</code></li>
           <li>Ensure React 18+ is installed</li>
         </ol>

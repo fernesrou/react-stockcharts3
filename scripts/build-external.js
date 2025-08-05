@@ -9,7 +9,7 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-console.log('🔧 Building React Financial Charts with external React...\n');
+console.log('🔧 Building React StockCharts 3 with external React...\n');
 
 // Verify all packages have correct peerDependencies
 const packagesDir = path.join(__dirname, '../packages');

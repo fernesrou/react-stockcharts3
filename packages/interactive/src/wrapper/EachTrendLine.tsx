@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ascending as d3Ascending } from "d3-array";
-import { noop, strokeDashTypes } from "@react-financial-charts/core";
-import { getXValue } from "@react-financial-charts/core/lib/utils/ChartDataUtil";
+import { noop, strokeDashTypes } from "@react-stockcharts3/core";
+import { getXValue } from "@react-stockcharts3/core/lib/utils/ChartDataUtil";
 import { isHover, saveNodeType } from "../utils";
 import { ClickableCircle, HoverTextNearMouse, InteractiveStraightLine } from "../components";
 

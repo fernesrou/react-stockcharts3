@@ -4,7 +4,7 @@ import {
     GenericChartComponent,
     noop,
     strokeDashTypes,
-} from "@react-financial-charts/core";
+} from "@react-stockcharts3/core";
 import * as React from "react";
 
 export interface StraightLineProps {

@@ -1,4 +1,4 @@
-import { first, functor, getAxisCanvas, GenericChartComponent } from "@react-financial-charts/core";
+import { first, functor, getAxisCanvas, GenericChartComponent } from "@react-stockcharts3/core";
 import { ScaleContinuousNumeric } from "d3-scale";
 import { area, CurveFactory } from "d3-shape";
 import * as React from "react";

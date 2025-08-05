@@ -1,4 +1,4 @@
-import { isDefined, isNotDefined, mapObject } from "@react-financial-charts/core";
+import { isDefined, isNotDefined, mapObject } from "@react-stockcharts3/core";
 
 export function getValueFromOverride(override: any, index: any, key: any, defaultValue: any) {
     if (isDefined(override) && override.index === index) {

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Annotate } from "@react-financial-charts/annotations";
+import { Annotate } from "@react-stockcharts3/annotations";
 import Annotated from "./Annotated";
 
 const meta: Meta<typeof Annotate> = {

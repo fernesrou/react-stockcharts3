@@ -1,6 +1,6 @@
 import { format } from "d3-format";
 import * as React from "react";
-import { getAxisCanvas, GenericChartComponent, functor, strokeDashTypes } from "@react-financial-charts/core";
+import { getAxisCanvas, GenericChartComponent, functor, strokeDashTypes } from "@react-stockcharts3/core";
 import { drawOnCanvas } from "./EdgeCoordinateV3";
 
 interface PriceCoordinateProps {

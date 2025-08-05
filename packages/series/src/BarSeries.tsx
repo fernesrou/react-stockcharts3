@@ -4,7 +4,7 @@ import {
     getAxisCanvas,
     GenericChartComponent,
     plotDataLengthBarWidth,
-} from "@react-financial-charts/core";
+} from "@react-stockcharts3/core";
 import { group } from "d3-array";
 import { ScaleContinuousNumeric, ScaleTime } from "d3-scale";
 import * as React from "react";

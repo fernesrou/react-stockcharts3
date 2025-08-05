@@ -3,7 +3,7 @@ import {
     lastVisibleItemBasedZoomAnchor,
     mouseBasedZoomAnchor,
     rightDomainBasedZoomAnchor,
-} from "@react-financial-charts/core";
+} from "@react-stockcharts3/core";
 import { ChartCanvas } from "../../../../core/src/ChartCanvas";
 import Interaction from "./Interaction";
 

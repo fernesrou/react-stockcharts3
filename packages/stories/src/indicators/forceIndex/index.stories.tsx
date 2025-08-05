@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { forceIndex } from "@react-financial-charts/indicators";
+import { forceIndex } from "@react-stockcharts3/indicators";
 import ForceIndicator from "./ForceIndicator";
 
 const meta: Meta<typeof forceIndex> = {

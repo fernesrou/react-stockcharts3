@@ -1,5 +1,5 @@
 import * as React from "react";
-import { strokeDashTypes } from "@react-financial-charts/core";
+import { strokeDashTypes } from "@react-stockcharts3/core";
 import { LineSeries } from "./LineSeries";
 import { StraightLine } from "./StraightLine";
 import { SVGComponent } from "./SVGComponent";

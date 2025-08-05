@@ -1,5 +1,5 @@
 import * as React from "react";
-import { isDefined, isNotDefined } from "@react-financial-charts/core";
+import { isDefined, isNotDefined } from "@react-stockcharts3/core";
 import { getValueFromOverride, isHoverForInteractiveType, saveNodeType, terminate } from "./utils";
 import { HoverTextNearMouse, MouseLocationIndicator } from "./components";
 import { EachLinearRegressionChannel } from "./wrapper";

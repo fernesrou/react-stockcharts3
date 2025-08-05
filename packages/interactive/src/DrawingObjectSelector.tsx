@@ -1,5 +1,5 @@
 import * as React from "react";
-import { head, isDefined, mapObject, GenericComponent, getMouseCanvas } from "@react-financial-charts/core";
+import { head, isDefined, mapObject, GenericComponent, getMouseCanvas } from "@react-stockcharts3/core";
 import { getMorePropsForChart, getSelected } from "./utils";
 
 interface DrawingObjectSelectorProps {

@@ -1,6 +1,6 @@
-# 📦 Using React Financial Charts in External Projects
+# 📦 Using React StockCharts 3 in External Projects
 
-This guide explains how to properly install and use React Financial Charts in your external React projects to avoid the common "multiple React versions" error.
+This guide explains how to properly install and use React StockCharts 3 in your external React projects to avoid the common "multiple React versions" error.
 
 ## 🔧 Quick Fix for Multiple React Versions Error
 
@@ -27,20 +27,20 @@ npm list react react-dom
 
 ```bash
 # Install the main package
-npm install react-financial-charts
+npm install react-stockcharts3
 
 # Or install specific packages
-npm install @react-financial-charts/core
-npm install @react-financial-charts/series
-npm install @react-financial-charts/axes
+npm install @react-stockcharts3/core
+npm install @react-stockcharts3/series
+npm install @react-stockcharts3/axes
 ```
 
 ### Method 2: From Source (Development)
 
 ```bash
 # Clone and build the monorepo
-git clone https://github.com/reactivemarkets/react-financial-charts.git
-cd react-financial-charts
+git clone https://github.com/reactivemarkets/react-stockcharts3.git
+cd react-stockcharts3
 npm install
 npm run build:external
 ```
@@ -240,9 +240,9 @@ function App() {
 
 ```jsx
 import React from 'react';
-import { Chart, ChartCanvas } from 'react-financial-charts';
-import { CandlestickSeries } from '@react-financial-charts/series';
-import { XAxis, YAxis } from '@react-financial-charts/axes';
+import { Chart, ChartCanvas } from 'react-stockcharts3';
+import { CandlestickSeries } from '@react-stockcharts3/series';
+import { XAxis, YAxis } from '@react-stockcharts3/axes';
 import { scaleTime } from 'd3-scale';
 
 const data = [
@@ -293,17 +293,17 @@ If you're developing with the library:
 
 1. **Link the packages locally:**
    ```bash
-   cd react-financial-charts
+   cd react-stockcharts3
    npm run build:external
    npm link
    
    cd your-project
-   npm link react-financial-charts
+   npm link react-stockcharts3
    ```
 
 2. **Watch for changes:**
    ```bash
-   cd react-financial-charts
+   cd react-stockcharts3
    npm run watch
    ```
 
@@ -339,13 +339,13 @@ const data = [{
 
 If you continue experiencing issues:
 
-1. **Check our GitHub issues:** [Issues Page](https://github.com/reactivemarkets/react-financial-charts/issues)
+1. **Check our GitHub issues:** [Issues Page](https://github.com/reactivemarkets/react-stockcharts3/issues)
 2. **Verify your setup** using the troubleshooting steps above
 3. **Create a minimal reproduction** to help diagnose the problem
 
 ## 📚 Additional Resources
 
-- [API Documentation](https://github.com/reactivemarkets/react-financial-charts/tree/main/packages)
-- [Storybook Examples](https://reactivemarkets.github.io/react-financial-charts/)
+- [API Documentation](https://github.com/reactivemarkets/react-stockcharts3/tree/main/packages)
+- [Storybook Examples](https://reactivemarkets.github.io/react-stockcharts3/)
 - [React 18 Migration Guide](./REACT_18_MODERNIZATION_PLAN.md)
 - [Code Examples](./REACT_18_CODE_EXAMPLES.md)

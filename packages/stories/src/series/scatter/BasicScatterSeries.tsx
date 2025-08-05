@@ -1,11 +1,11 @@
 import { max } from "d3-array";
 import { scaleLinear } from "d3-scale";
 import * as React from "react";
-import { Chart, ChartCanvas } from "@react-financial-charts/core";
-import { XAxis, YAxis } from "@react-financial-charts/axes";
-import { discontinuousTimeScaleProviderBuilder } from "@react-financial-charts/scales";
-import { ScatterSeries, CircleMarker } from "@react-financial-charts/series";
-import { withDeviceRatio, withSize } from "@react-financial-charts/utils";
+import { Chart, ChartCanvas } from "@react-stockcharts3/core";
+import { XAxis, YAxis } from "@react-stockcharts3/axes";
+import { discontinuousTimeScaleProviderBuilder } from "@react-stockcharts3/scales";
+import { ScatterSeries, CircleMarker } from "@react-stockcharts3/series";
+import { withDeviceRatio, withSize } from "@react-stockcharts3/utils";
 import { IOHLCData, withOHLCData } from "../../data";
 
 interface ChartProps {
