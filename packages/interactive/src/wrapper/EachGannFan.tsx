@@ -49,21 +49,21 @@ export class EachGannFan extends React.Component<EachGannFanProps, EachGannFanSt
         interactive: true,
         selected: false,
         appearance: {
-            stroke: "#000000",
+            stroke: "#2ca02c",
             strokeWidth: 1,
-            edgeStroke: "#000000",
+            edgeStroke: "#2ca02c",
             edgeFill: "#FFFFFF",
             edgeStrokeWidth: 1,
             r: 5,
             fill: [
-                "rgba(31, 119, 180, 0.2)",
-                "rgba(255, 126, 14, 0.2)",
-                "rgba(44, 160, 44, 0.2)",
-                "rgba(214, 39, 39, 0.2)",
-                "rgba(148, 103, 189, 0.2)",
-                "rgba(140, 86, 75, 0.2)",
-                "rgba(227, 119, 194, 0.2)",
-                "rgba(127, 127, 127, 0.2)",
+                "rgba(31, 119, 180, 0.1)",
+                "rgba(255, 126, 14, 0.1)",
+                "rgba(44, 160, 44, 0.1)",
+                "rgba(214, 39, 39, 0.1)",
+                "rgba(148, 103, 189, 0.1)",
+                "rgba(140, 86, 75, 0.1)",
+                "rgba(227, 119, 194, 0.1)",
+                "rgba(127, 127, 127, 0.1)",
             ],
             fontFamily: "-apple-system, system-ui, Roboto, 'Helvetica Neue', Ubuntu, sans-serif",
             fontSize: 10,
@@ -76,6 +76,7 @@ export class EachGannFan extends React.Component<EachGannFanProps, EachGannFanSt
             bgHeight: 18,
             bgWidth: 120,
             text: "Click to select object",
+            selectedText: "Click to select object",
         },
     };
 
@@ -104,6 +105,8 @@ export class EachGannFan extends React.Component<EachGannFanProps, EachGannFanSt
         const { onDragComplete } = this.props;
         const { hover } = this.state;
         const { enable: hoverTextEnabled, ...restHoverTextProps } = hoverText;
+
+        const shouldShowTooltip = hoverTextEnabled && hover && !selected;
 
         const hoverHandler = interactive ? { onHover: this.handleHover, onUnHover: this.handleHover } : {};
 
@@ -147,7 +150,7 @@ export class EachGannFan extends React.Component<EachGannFanProps, EachGannFanSt
                     onDragComplete={onDragComplete}
                 />
                 {line1Edge}
-                <HoverTextNearMouse show={hoverTextEnabled && hover && !selected} {...restHoverTextProps} />
+                <HoverTextNearMouse show={shouldShowTooltip} {...restHoverTextProps} />
             </g>
         );
     }
@@ -279,7 +282,7 @@ export class EachGannFan extends React.Component<EachGannFanProps, EachGannFanSt
         };
     };
 
-    private readonly handleHover = (moreProps: any) => {
+    private readonly handleHover = (e: React.MouseEvent, moreProps: any) => {
         if (this.state.hover !== moreProps.hovering) {
             this.setState({
                 hover: moreProps.hovering,

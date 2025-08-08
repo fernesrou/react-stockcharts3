@@ -6,6 +6,7 @@ import { EachGannFan } from "./wrapper";
 
 export interface GannFanProps {
     readonly enabled: boolean;
+    readonly drawingMode?: boolean;
     readonly onStart?: () => void;
     readonly onComplete: (e: React.MouseEvent, newfans: any[], moreProps: any) => void;
     readonly onSelect?: (e: React.MouseEvent, interactives: any[], moreProps: any) => void;
@@ -38,16 +39,26 @@ interface GannFanState {
 
 export class GannFan extends React.Component<GannFanProps, GannFanState> {
     public static defaultProps = {
+        drawingMode: true,
         appearance: {
-            stroke: "#000000",
+            stroke: "#2ca02c",
             fillOpacity: 0.2,
             strokeOpacity: 1,
             strokeWidth: 1,
-            edgeStroke: "#000000",
+            edgeStroke: "#2ca02c",
             edgeFill: "#FFFFFF",
             edgeStrokeWidth: 1,
             r: 5,
-            fill: ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33", "#a65628", "#f781bf"],
+            fill: [
+                "rgba(228, 26, 28, 0.1)",
+                "rgba(55, 126, 184, 0.1)",
+                "rgba(77, 175, 74, 0.1)",
+                "rgba(152, 78, 163, 0.1)",
+                "rgba(255, 127, 0, 0.1)",
+                "rgba(255, 255, 51, 0.1)",
+                "rgba(166, 86, 40, 0.1)",
+                "rgba(247, 129, 191, 0.1)",
+            ],
             fontFamily: "-apple-system, system-ui, Roboto, 'Helvetica Neue', Ubuntu, sans-serif",
             fontSize: 12,
             fontFill: "#000000",
@@ -119,6 +130,7 @@ export class GannFan extends React.Component<GannFanProps, GannFanState> {
                             ref={this.saveNodeType(idx)}
                             index={idx}
                             selected={each.selected}
+                            interactive={true}
                             {...(idx === overrideIndex ? override : each)}
                             appearance={eachAppearance}
                             hoverText={hoverText}
@@ -168,6 +180,11 @@ export class GannFan extends React.Component<GannFanProps, GannFanState> {
 
     private readonly handleStart = (_: React.MouseEvent, xyValue: any) => {
         const { current } = this.state;
+        const { drawingMode = GannFan.defaultProps.drawingMode } = this.props;
+
+        if (!drawingMode) {
+            return;
+        }
 
         if (isNotDefined(current) || isNotDefined(current.startXY)) {
             this.mouseMoved = false;

@@ -7,6 +7,7 @@ import { EachEquidistantChannel } from "./wrapper";
 
 interface EquidistantChannelProps {
     readonly enabled: boolean;
+    readonly drawingMode?: boolean;
     readonly onStart: () => void;
     readonly onComplete: (e: React.MouseEvent, newChannels: any[], moreProps: any) => void;
     readonly onSelect: (e: React.MouseEvent, interactives: any[], moreProps: any) => void;
@@ -37,6 +38,7 @@ interface EquidistantChannelState {
 
 export class EquidistantChannel extends React.Component<EquidistantChannelProps, EquidistantChannelState> {
     public static defaultProps = {
+        drawingMode: true,
         onSelect: noop,
         currentPositionStroke: "#000000",
         currentPositionOpacity: 1,
@@ -51,15 +53,15 @@ export class EquidistantChannel extends React.Component<EquidistantChannelProps,
         },
         channels: [],
         appearance: {
-            stroke: "#000000",
+            stroke: "#2ca02c",
             strokeOpacity: 1,
             strokeWidth: 1,
-            fill: "#8AAFE2",
-            fillOpacity: 0.7,
-            edgeStroke: "#000000",
+            fill: "rgba(44, 160, 44, 0.1)",
+            fillOpacity: 0.1,
+            edgeStroke: "#2ca02c",
             edgeFill: "#FFFFFF",
-            edgeFill2: "#250B98",
-            edgeStrokeWidth: 1,
+            edgeFill2: "#2ca02c",
+            edgeStrokeWidth: 2,
             r: 5,
         },
     };
@@ -120,6 +122,7 @@ export class EquidistantChannel extends React.Component<EquidistantChannelProps,
                             ref={this.saveNodeType(idx)}
                             index={idx}
                             selected={each.selected}
+                            interactive={true}
                             hoverText={hoverText}
                             {...(idx === overrideIndex ? override : each)}
                             appearance={eachAppearance}
@@ -179,6 +182,11 @@ export class EquidistantChannel extends React.Component<EquidistantChannelProps,
 
     private readonly handleStart = (_: React.MouseEvent, xyValue: any) => {
         const { current } = this.state;
+        const { drawingMode = EquidistantChannel.defaultProps.drawingMode } = this.props;
+
+        if (!drawingMode) {
+            return;
+        }
 
         if (isNotDefined(current) || isNotDefined(current.startXY)) {
             this.mouseMoved = false;

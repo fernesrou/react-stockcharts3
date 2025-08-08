@@ -46,7 +46,7 @@ export class GannFan extends React.Component<GannFanProps> {
                 onDragComplete={onDragComplete}
                 onHover={onHover}
                 onUnHover={onUnHover}
-                drawOn={["mousemove", "mouseleave", "pan", "drag"]}
+                drawOn={["mousemove", "pan", "drag"]}
             />
         );
     }
@@ -88,32 +88,24 @@ export class GannFan extends React.Component<GannFanProps> {
     private readonly isHover = (moreProps: any) => {
         const { tolerance, onHover } = this.props;
         const { mouseXY } = moreProps;
-        const [mouseX, mouseY] = mouseXY;
 
-        let hovering = false;
-        if (isDefined(onHover)) {
-            const lines = this.helper(this.props, moreProps);
+        if (!isDefined(onHover)) {
+            return false;
+        }
 
-            // tslint:disable-next-line: prefer-for-of
-            for (let i = 0; i < lines.length; i++) {
-                const line1 = lines[i];
+        const lines = this.helper(this.props, moreProps);
 
-                const left = Math.min(line1.x1, line1.x2);
-                const right = Math.max(line1.x1, line1.x2);
-                const top = Math.min(line1.y1, line1.y2);
-                const bottom = Math.max(line1.y1, line1.y2);
+        for (let i = 0; i < lines.length; i++) {
+            const line1 = lines[i];
 
-                const isWithinLineBounds = mouseX >= left && mouseX <= right && mouseY >= top && mouseY <= bottom;
+            const hovering = isHovering2([line1.x1, line1.y1], [line1.x2, line1.y2], mouseXY, tolerance);
 
-                hovering =
-                    isWithinLineBounds && isHovering2([line1.x1, line1.y1], [line1.x2, line1.y2], mouseXY, tolerance);
-
-                if (hovering) {
-                    break;
-                }
+            if (hovering) {
+                return true;
             }
         }
-        return hovering;
+
+        return false;
     };
 
     private readonly getLineCoordinates = (start: number[], endX: number, endY: number, text: string) => {

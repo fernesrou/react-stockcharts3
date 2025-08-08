@@ -103,29 +103,36 @@ export class ChannelWithArea extends React.Component<ChannelWithAreaProps> {
                     chartConfig: { yScale },
                 } = moreProps;
 
-                const line1Hovering = isHovering({
-                    x1Value: line1.x1,
-                    y1Value: line1.y1,
-                    x2Value: line1.x2,
-                    y2Value: line1.y2,
-                    type: "LINE",
-                    mouseXY,
-                    tolerance,
-                    xScale,
-                    yScale,
-                });
+                // Usar las coordenadas originales de datos, no las ya escaladas
+                const { line1: originalLine1, line2: originalLine2 } = getLines(this.props, moreProps);
 
-                const line2Hovering = isHovering({
-                    x1Value: line2.x1,
-                    y1Value: line2.y1,
-                    x2Value: line2.x2,
-                    y2Value: line2.y2,
-                    type: "LINE",
-                    mouseXY,
-                    tolerance,
-                    xScale,
-                    yScale,
-                });
+                const line1Hovering = originalLine1
+                    ? isHovering({
+                          x1Value: originalLine1.x1,
+                          y1Value: originalLine1.y1,
+                          x2Value: originalLine1.x2,
+                          y2Value: originalLine1.y2,
+                          type: "LINE",
+                          mouseXY,
+                          tolerance,
+                          xScale,
+                          yScale,
+                      })
+                    : false;
+
+                const line2Hovering = originalLine2
+                    ? isHovering({
+                          x1Value: originalLine2.x1,
+                          y1Value: originalLine2.y1,
+                          x2Value: originalLine2.x2,
+                          y2Value: originalLine2.y2,
+                          type: "LINE",
+                          mouseXY,
+                          tolerance,
+                          xScale,
+                          yScale,
+                      })
+                    : false;
 
                 return line1Hovering || line2Hovering;
             }

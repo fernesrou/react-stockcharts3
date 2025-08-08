@@ -14,21 +14,24 @@ export class DrawingObjectSelector extends React.Component<DrawingObjectSelector
     public static defaultProps = {
         enabled: true,
     };
-
     public render() {
+        console.log("DrawingObjectSelector render - enabled:", this.props.enabled);
         return (
             <GenericComponent
+                svgDraw={() => null}
                 canvasToDraw={getMouseCanvas}
+                canvasDraw={() => null}
                 onMouseDown={this.handleClick}
                 onDoubleClick={this.handleDoubleClick}
-                drawOn={["mousemove", "pan", "drag"]}
+                drawOn={["mousemove", "pan", "drag", "mousedown"]}
             />
         );
     }
-
     private readonly getInteraction = (moreProps: any) => {
         const { getInteractiveNodes, drawingObjectMap } = this.props;
         const interactiveNodes = getInteractiveNodes();
+        console.log("getInteraction - interactiveNodes:", interactiveNodes);
+        console.log("getInteraction - drawingObjectMap:", drawingObjectMap);
         const interactives = mapObject(interactiveNodes, (each) => {
             const key = drawingObjectMap[each.type];
 
@@ -37,7 +40,6 @@ export class DrawingObjectSelector extends React.Component<DrawingObjectSelector
             const valuePresent = isDefined(valueArray) && Array.isArray(valueArray) && valueArray.length > 0;
             if (valuePresent) {
                 const morePropsForChart = getMorePropsForChart(moreProps, each.chartId);
-
                 const objects = each.node.getSelectionState(morePropsForChart);
 
                 return {
@@ -57,14 +59,17 @@ export class DrawingObjectSelector extends React.Component<DrawingObjectSelector
     };
 
     private readonly handleClick = (e: React.MouseEvent, moreProps: any) => {
+        console.log("DrawingObjectSelector handleClick called!", { enabled: this.props.enabled, event: e.type });
         e.preventDefault();
         const { onSelect } = this.props;
         const { enabled } = this.props;
         if (!enabled) {
+            console.log("DrawingObjectSelector not enabled, returning");
             return;
         }
 
         const interactives = this.getInteraction(moreProps);
+        console.log("DrawingObjectSelector interactives:", interactives);
         if (onSelect !== undefined) {
             onSelect(e, interactives, moreProps);
         }

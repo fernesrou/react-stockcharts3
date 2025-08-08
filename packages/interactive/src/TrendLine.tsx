@@ -7,6 +7,7 @@ import { EachTrendLine } from "./wrapper";
 export interface TrendLineProps {
     readonly snap: boolean;
     readonly enabled: boolean;
+    readonly drawingMode?: boolean;
     readonly snapTo?: (datum: any) => number | number[];
     readonly shouldDisableSnap?: (e: React.MouseEvent) => boolean;
     readonly onStart: (e: React.MouseEvent, moreProps: any) => void;
@@ -41,6 +42,7 @@ interface TrendLineState {
 export class TrendLine extends React.Component<TrendLineProps, TrendLineState> {
     public static defaultProps = {
         type: "XLINE",
+        drawingMode: true,
         onStart: noop,
         onSelect: noop,
         currentPositionStroke: "#000000",
@@ -206,6 +208,11 @@ export class TrendLine extends React.Component<TrendLineProps, TrendLineState> {
 
     private readonly handleStart = (e: React.MouseEvent, xyValue: any, moreProps: any) => {
         const { current } = this.state;
+        const { drawingMode = TrendLine.defaultProps.drawingMode } = this.props;
+
+        if (!drawingMode) {
+            return;
+        }
 
         if (isNotDefined(current) || isNotDefined(current.start)) {
             this.mouseMoved = false;

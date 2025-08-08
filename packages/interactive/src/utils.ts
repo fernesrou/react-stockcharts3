@@ -50,6 +50,7 @@ export function isHoverForInteractiveType(interactiveType: any) {
             });
             return interactive;
         }
+        return [];
     };
 }
 
@@ -73,15 +74,37 @@ function getMouseXY(moreProps: any, [ox, oy]: any) {
 }
 
 export function getMorePropsForChart(moreProps: any, chartId: any) {
-    const { chartConfig: chartConfigList } = moreProps;
-    const chartConfig = chartConfigList.find((each: any) => each.id === chartId);
+    // First try to use chartConfigList from moreProps
+    const { chartConfig: chartConfigList, chartConfigs } = moreProps;
+    const configList = chartConfigList || chartConfigs;
 
-    const { origin } = chartConfig;
-    const mouseXY = getMouseXY(moreProps, origin);
+    if (Array.isArray(configList)) {
+        const chartConfig = configList.find((each: any) => each.id === chartId);
+
+        if (chartConfig) {
+            const { origin } = chartConfig;
+            const mouseXY = getMouseXY(moreProps, origin);
+            return {
+                ...moreProps,
+                chartConfig,
+                mouseXY,
+            };
+        }
+    }
+
+    // Fallback: create minimal chart config with available scales
+    const fallbackChartConfig = {
+        id: chartId,
+        origin: [0, 0],
+        yScale: moreProps.yScale || moreProps.currentCharts?.[chartId]?.yScale,
+    };
+
     return {
         ...moreProps,
-        chartConfig,
-        mouseXY,
+        chartConfig: fallbackChartConfig,
+        mouseXY: moreProps.mouseXY || [0, 0],
+        xScale: moreProps.xScale,
+        yScale: fallbackChartConfig.yScale,
     };
 }
 

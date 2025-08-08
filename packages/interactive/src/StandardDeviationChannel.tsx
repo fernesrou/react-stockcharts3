@@ -41,13 +41,13 @@ export class StandardDeviationChannel extends React.Component<
     public static defaultProps = {
         snapTo: (d: any) => d.close,
         appearance: {
-            stroke: "#000000",
-            fillOpacity: 0.2,
+            stroke: "#2ca02c",
+            fillOpacity: 0.1,
             strokeOpacity: 1,
             strokeWidth: 1,
-            fill: "#8AAFE2",
+            fill: "rgba(44, 160, 44, 0.1)",
             edgeStrokeWidth: 2,
-            edgeStroke: "#000000",
+            edgeStroke: "#2ca02c",
             edgeFill: "#FFFFFF",
             r: 5,
         },

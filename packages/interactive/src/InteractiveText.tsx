@@ -95,6 +95,7 @@ export class InteractiveText extends React.Component<InteractiveTextProps, Inter
                             key={idx}
                             ref={this.saveNodeType(idx)}
                             index={idx}
+                            interactive={true}
                             {...props}
                             selected={each.selected}
                             position={getValueFromOverride(override, idx, "position", each.position)}
@@ -109,7 +110,6 @@ export class InteractiveText extends React.Component<InteractiveTextProps, Inter
                     canvasToDraw={getMouseCanvas}
                     drawOn={["mousemove", "pan"]}
                 />
-                ;
             </g>
         );
     }
