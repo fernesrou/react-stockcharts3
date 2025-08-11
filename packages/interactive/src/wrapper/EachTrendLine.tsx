@@ -180,7 +180,6 @@ export class EachTrendLine extends React.Component<EachTrendLineProps, EachTrend
         }
     };
 
-
     private readonly handleEdge2Drag = (e: React.MouseEvent, moreProps: any) => {
         const { index, onDrag, x1Value, y1Value } = this.props;
 
