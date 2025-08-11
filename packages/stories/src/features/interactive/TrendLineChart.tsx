@@ -124,7 +124,7 @@ class TrendLineChart extends React.Component<TrendLineChartProps, TrendLineChart
         return obj;
     }
 
-    private readonly handleSelection = (e: React.MouseEvent, interactives: any[], _moreProps: any) => {
+    private readonly handleSelection = (e: React.MouseEvent, interactives: any[], moreProps: any) => {
         console.log("=== DrawingObjectSelector CALLED ===");
         console.log("Event:", e.type, e.target);
         console.log("Interactives received:", interactives);

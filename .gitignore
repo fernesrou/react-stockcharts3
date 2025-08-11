@@ -67,3 +67,8 @@ dump.rdb
 .DS_Store
 
 .idea/
+
+# Claude AI documentation files
+CLAUDE.md
+REACT_18_MODERNIZATION_PLAN.md
+REACT_18_CODE_EXAMPLES.md
