@@ -209,7 +209,7 @@ class StandardDeviationChannelChart extends React.Component<
                             snap={false}
                             onStart={() => console.log("StandardDeviationChannel drawing started")}
                             onComplete={this.onDrawComplete}
-                            channels={safeStdDevChannels}
+                            stdDevChannels={safeStdDevChannels}
                         />
 
                         <MouseCoordinateY displayFormat={format(".2f")} />
@@ -219,7 +219,7 @@ class StandardDeviationChannelChart extends React.Component<
                             enabled={!enableStdDevChannel}
                             getInteractiveNodes={this.getInteractiveNodes}
                             drawingObjectMap={{
-                                StandardDeviationChannel: "channels",
+                                StandardDeviationChannel: "stdDevChannels",
                             }}
                             onSelect={this.handleSelection}
                         />

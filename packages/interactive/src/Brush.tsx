@@ -27,7 +27,7 @@ interface BrushState {
 export class Brush extends React.Component<BrushProps, BrushState> {
     public static defaultProps = {
         type: "2D",
-        strokeStyle: "#000000",
+        strokeStyle: "#00000034",
         fillStyle: "#3h3h3h",
         strokeDashArray: "ShortDash",
     };

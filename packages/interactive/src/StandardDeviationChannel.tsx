@@ -26,7 +26,7 @@ export interface StandardDeviationChannelProps {
         readonly r?: number;
     };
     readonly hoverText: object;
-    readonly channels: any[];
+    readonly stdDevChannels: any[];
 }
 
 interface StandardDeviationChannelState {
@@ -79,7 +79,7 @@ export class StandardDeviationChannel extends React.Component<
 
         this.terminate = terminate.bind(this);
         this.saveNodeType = saveNodeType.bind(this);
-        this.getSelectionState = isHoverForInteractiveType("channels").bind(this);
+        this.getSelectionState = isHoverForInteractiveType("stdDevChannels").bind(this);
 
         this.state = {};
     }
@@ -87,7 +87,7 @@ export class StandardDeviationChannel extends React.Component<
     public render() {
         const {
             appearance,
-            channels,
+            stdDevChannels,
             currentPositionOpacity,
             currentPositionRadius = StandardDeviationChannel.defaultProps.currentPositionRadius,
             currentPositionStroke,
@@ -121,7 +121,7 @@ export class StandardDeviationChannel extends React.Component<
 
         return (
             <g>
-                {channels.map((each, idx) => {
+                {stdDevChannels.map((each: any, idx: number) => {
                     const eachAppearance = isDefined(each.appearance)
                         ? { ...eachDefaultAppearance, ...each.appearance }
                         : eachDefaultAppearance;
@@ -166,11 +166,11 @@ export class StandardDeviationChannel extends React.Component<
 
     private handleEnd = (e: React.MouseEvent, xyValue: any, moreProps: any) => {
         const { current } = this.state;
-        const { appearance, channels } = this.props;
+        const { appearance, stdDevChannels } = this.props;
 
         if (this.mouseMoved && isDefined(current) && isDefined(current.start)) {
             const newChannels = [
-                ...channels.map((d) => ({ ...d, selected: false })),
+                ...stdDevChannels.map((d) => ({ ...d, selected: false })),
                 {
                     start: current.start,
                     end: xyValue,
@@ -232,9 +232,9 @@ export class StandardDeviationChannel extends React.Component<
 
     private readonly handleDragLineComplete = (e: React.MouseEvent, moreProps: any) => {
         const { override } = this.state;
-        const { channels } = this.props;
+        const { stdDevChannels } = this.props;
         if (isDefined(override)) {
-            const newChannels = channels.map((each, idx) =>
+            const newChannels = stdDevChannels.map((each, idx) =>
                 idx === override.index
                     ? {
                           ...each,
