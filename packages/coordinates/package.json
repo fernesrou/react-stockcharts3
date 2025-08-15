@@ -1,6 +1,6 @@
 {
     "name": "@react-stockcharts3/coordinates",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "description": "Coordinates for react-stockcharts3",
     "publishConfig": {
         "access": "public"
@@ -38,7 +38,7 @@
         "watch": "tsc -p tsconfig.json --watch --preserveWatchOutput"
     },
     "dependencies": {
-        "@react-stockcharts3/core": "^1.2.2",
+        "@react-stockcharts3/core": "^1.2.3",
         "d3-format": "^2.0.0"
     },
     "peerDependencies": {

@@ -1,6 +1,6 @@
 {
     "name": "@react-stockcharts3/series",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "description": "Series for react-stockcharts3",
     "publishConfig": {
         "access": "public"
@@ -38,7 +38,7 @@
         "watch": "tsc -p tsconfig.json --watch --preserveWatchOutput"
     },
     "dependencies": {
-        "@react-stockcharts3/core": "^1.2.2",
+        "@react-stockcharts3/core": "^1.2.3",
         "@types/d3-scale": "^3.2.2",
         "d3-array": "^2.9.1",
         "d3-scale": "^4.0.2",
