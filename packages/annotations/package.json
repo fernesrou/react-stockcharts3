@@ -1,6 +1,6 @@
 {
     "name": "@react-stockcharts3/annotations",
-    "version": "1.2.3",
+    "version": "1.2.4",
     "description": "Annotations for react-stockcharts3",
     "publishConfig": {
         "access": "public"
@@ -42,7 +42,7 @@
         "react-dom": "^18.0.0 || ^19.0.0"
     },
     "dependencies": {
-        "@react-stockcharts3/core": "^1.2.3",
+        "@react-stockcharts3/core": "^1.2.4",
         "@types/d3-scale": "^3.2.2"
     },
     "gitHead": "4fd534f4d39d7d8882d4b09106e3607452437fb2"
