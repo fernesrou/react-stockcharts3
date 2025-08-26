@@ -15,7 +15,6 @@ export class DrawingObjectSelector extends React.Component<DrawingObjectSelector
         enabled: true,
     };
     public render() {
-        console.log("DrawingObjectSelector render - enabled:", this.props.enabled);
         return (
             <GenericComponent
                 svgDraw={() => null}
@@ -30,8 +29,6 @@ export class DrawingObjectSelector extends React.Component<DrawingObjectSelector
     private readonly getInteraction = (moreProps: any) => {
         const { getInteractiveNodes, drawingObjectMap } = this.props;
         const interactiveNodes = getInteractiveNodes();
-        console.log("getInteraction - interactiveNodes:", interactiveNodes);
-        console.log("getInteraction - drawingObjectMap:", drawingObjectMap);
         const interactives = mapObject(interactiveNodes, (each) => {
             const key = drawingObjectMap[each.type];
 
@@ -59,17 +56,14 @@ export class DrawingObjectSelector extends React.Component<DrawingObjectSelector
     };
 
     private readonly handleClick = (e: React.MouseEvent, moreProps: any) => {
-        console.log("DrawingObjectSelector handleClick called!", { enabled: this.props.enabled, event: e.type });
         e.preventDefault();
         const { onSelect } = this.props;
         const { enabled } = this.props;
         if (!enabled) {
-            console.log("DrawingObjectSelector not enabled, returning");
             return;
         }
 
         const interactives = this.getInteraction(moreProps);
-        console.log("DrawingObjectSelector interactives:", interactives);
         if (onSelect !== undefined) {
             onSelect(e, interactives, moreProps);
         }

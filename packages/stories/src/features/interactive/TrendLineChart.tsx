@@ -55,7 +55,6 @@ class TrendLineChart extends React.Component<TrendLineChartProps, TrendLineChart
     }
 
     private getInteractiveNodes() {
-        console.log("getInteractiveNodes called:", this.interactiveNodes);
         return this.interactiveNodes;
     }
 
@@ -107,7 +106,6 @@ class TrendLineChart extends React.Component<TrendLineChartProps, TrendLineChart
     };
 
     private readonly onDrawComplete = (e: React.MouseEvent, newTrends: any[], _moreProps: any) => {
-        console.log("TrendLine drawing completed:", newTrends);
         this.setState({
             enableTrendLine: false,
             trends: newTrends,
@@ -125,22 +123,14 @@ class TrendLineChart extends React.Component<TrendLineChartProps, TrendLineChart
     }
 
     private readonly handleSelection = (e: React.MouseEvent, interactives: any[], moreProps: any) => {
-        console.log("=== DrawingObjectSelector CALLED ===");
-        console.log("Event:", e.type, e.target);
-        console.log("Interactives received:", interactives);
-        console.log("MoreProps:", moreProps);
-
         // Usar toObject como en el ejemplo original
         const newState = this.toObject(interactives, (each) => {
-            console.log("Processing interactive:", each);
             // Para chartId 1, usar "trends" como clave
             const stateKey = each.chartId === 1 ? "trends" : `${each.type.toLowerCase()}_${each.chartId}`;
             return [stateKey, each.objects || []];
         });
 
-        console.log("New state to set:", newState);
         this.setState(newState);
-        console.log("=== END DrawingObjectSelector ===");
     };
 
     public render() {
@@ -149,14 +139,6 @@ class TrendLineChart extends React.Component<TrendLineChartProps, TrendLineChart
 
         // Asegurar que trends sea un array válido
         const safeTrends = Array.isArray(trends) ? trends : [];
-
-        console.log("TrendLineChart render:", {
-            enableTrendLine,
-            trends: safeTrends.length,
-            rawTrends: trends,
-            selectorEnabled: !enableTrendLine,
-            interactiveNodes: this.interactiveNodes,
-        });
 
         const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor((d: IOHLCData) => d.date);
         const { data: chartData, xScale, xAccessor, displayXAccessor } = xScaleProvider(data);
@@ -230,7 +212,9 @@ class TrendLineChart extends React.Component<TrendLineChartProps, TrendLineChart
                             enabled={enableTrendLine}
                             type="RAY"
                             snap={false}
-                            onStart={() => console.log("TrendLine drawing started")}
+                            onStart={() => {
+                                // TrendLine drawing started
+                            }}
                             onComplete={this.onDrawComplete}
                             trends={safeTrends}
                         />

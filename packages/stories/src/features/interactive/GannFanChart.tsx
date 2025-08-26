@@ -54,7 +54,6 @@ class GannFanChart extends React.Component<GannFanChartProps, GannFanChartState>
     }
 
     private getInteractiveNodes() {
-        console.log("getInteractiveNodes called:", this.interactiveNodes);
         return this.interactiveNodes;
     }
 
@@ -84,7 +83,6 @@ class GannFanChart extends React.Component<GannFanChartProps, GannFanChartState>
     };
 
     private readonly onDrawComplete = (e: React.MouseEvent, newFans: any[], _moreProps: any) => {
-        console.log("GannFan drawing completed:", newFans);
         this.setState({
             enableGannFan: false,
             fans: newFans,
@@ -101,19 +99,12 @@ class GannFanChart extends React.Component<GannFanChartProps, GannFanChartState>
     }
 
     private readonly handleSelection = (e: React.MouseEvent, interactives: any[], _moreProps: any) => {
-        console.log("=== DrawingObjectSelector CALLED (GannFan) ===");
-        console.log("Event:", e.type, e.target);
-        console.log("Interactives received:", interactives);
-
         const newState = this.toObject(interactives, (each) => {
-            console.log("Processing interactive:", each);
             const stateKey = each.chartId === 1 ? "fans" : `${each.type.toLowerCase()}_${each.chartId}`;
             return [stateKey, each.objects || []];
         });
 
-        console.log("New state to set:", newState);
         this.setState(newState);
-        console.log("=== END DrawingObjectSelector (GannFan) ===");
     };
 
     public render() {
@@ -121,14 +112,6 @@ class GannFanChart extends React.Component<GannFanChartProps, GannFanChartState>
         const { enableGannFan, fans } = this.state;
 
         const safeFans = Array.isArray(fans) ? fans : [];
-
-        console.log("GannFanChart render:", {
-            enableGannFan,
-            fans: safeFans.length,
-            rawFans: fans,
-            selectorEnabled: !enableGannFan,
-            interactiveNodes: this.interactiveNodes,
-        });
 
         const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor((d: IOHLCData) => d.date);
         const { data: chartData, xScale, xAccessor, displayXAccessor } = xScaleProvider(data);
@@ -201,7 +184,9 @@ class GannFanChart extends React.Component<GannFanChartProps, GannFanChartState>
                             ref={this.saveInteractiveNodes("GannFan", 1)}
                             enabled={enableGannFan}
                             snap={false}
-                            onStart={() => console.log("GannFan drawing started")}
+                            onStart={() => {
+                                // GannFan drawing started
+                            }}
                             onComplete={this.onDrawComplete}
                             fans={safeFans}
                         />

@@ -60,7 +60,6 @@ class InteractiveTextChart extends React.Component<InteractiveTextChartProps, In
     }
 
     private getInteractiveNodes() {
-        console.log("getInteractiveNodes called:", this.interactiveNodes);
         return this.interactiveNodes;
     }
 
@@ -92,7 +91,6 @@ class InteractiveTextChart extends React.Component<InteractiveTextChartProps, In
     };
 
     private readonly onChoosePosition = (e: React.MouseEvent, newText: any, _moreProps: any) => {
-        console.log("InteractiveText position chosen:", newText);
         this.setState((prevState) => ({
             enableText: false,
             textElements: [...(Array.isArray(prevState.textElements) ? prevState.textElements : []), newText],
@@ -103,7 +101,6 @@ class InteractiveTextChart extends React.Component<InteractiveTextChartProps, In
     };
 
     private readonly onTextDragComplete = (e: React.MouseEvent, newTextElements: any[], _moreProps: any) => {
-        console.log("InteractiveText drag completed:", newTextElements);
         this.setState({
             textElements: newTextElements,
         });
@@ -119,24 +116,15 @@ class InteractiveTextChart extends React.Component<InteractiveTextChartProps, In
     }
 
     private readonly handleSelection = (e: React.MouseEvent, interactives: any[], _moreProps: any) => {
-        console.log("=== DrawingObjectSelector CALLED (InteractiveText) ===");
-        console.log("Event:", e.type, e.target);
-        console.log("Interactives received:", interactives);
-
         const newState = this.toObject(interactives, (each) => {
-            console.log("Processing interactive:", each);
             const stateKey = each.chartId === 1 ? "textElements" : `${each.type.toLowerCase()}_${each.chartId}`;
             return [stateKey, each.objects || []];
         });
 
-        console.log("New state to set:", newState);
         this.setState(newState);
-        console.log("=== END DrawingObjectSelector (InteractiveText) ===");
     };
 
     private readonly handleDoubleClick = (e: React.MouseEvent, interactives: any[], _moreProps: any) => {
-        console.log("=== DrawingObjectSelector DOUBLE CLICK (InteractiveText) ===");
-
         // Check if any text element is selected for editing
         const selectedElements = interactives.flatMap(
             (interactive) => interactive.objects?.filter((obj: any) => obj.selected) || [],
@@ -190,14 +178,6 @@ class InteractiveTextChart extends React.Component<InteractiveTextChartProps, In
         const { enableText, textElements, showModal, editingText } = this.state;
 
         const safeTextElements = Array.isArray(textElements) ? textElements : [];
-
-        console.log("InteractiveTextChart render:", {
-            enableText,
-            textElements: safeTextElements.length,
-            rawTextElements: textElements,
-            selectorEnabled: !enableText,
-            interactiveNodes: this.interactiveNodes,
-        });
 
         const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor((d: IOHLCData) => d.date);
         const { data: chartData, xScale, xAccessor, displayXAccessor } = xScaleProvider(data);

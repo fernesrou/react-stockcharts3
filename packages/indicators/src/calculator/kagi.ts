@@ -199,7 +199,7 @@ export default function () {
                 line.from = undefined;
                 line.volume = 0;
             } else {
-                // console.log("MOVING IN REV DIR BUT..", line.open, line.close, source(d));
+                // No action needed for this case
             }
             line.current = source(d);
             // @ts-ignore

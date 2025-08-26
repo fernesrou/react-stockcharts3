@@ -54,7 +54,6 @@ class FibonacciChart extends React.Component<FibonacciChartProps, FibonacciChart
     }
 
     private getInteractiveNodes() {
-        console.log("getInteractiveNodes called:", this.interactiveNodes);
         return this.interactiveNodes;
     }
 
@@ -86,7 +85,6 @@ class FibonacciChart extends React.Component<FibonacciChartProps, FibonacciChart
     };
 
     private readonly onDrawComplete = (e: React.MouseEvent, newRetracements: any[], _moreProps: any) => {
-        console.log("Fibonacci drawing completed:", newRetracements);
         this.setState({
             enableFibonacci: false,
             retracements: newRetracements,
@@ -103,20 +101,12 @@ class FibonacciChart extends React.Component<FibonacciChartProps, FibonacciChart
     }
 
     private readonly handleSelection = (e: React.MouseEvent, interactives: any[], moreProps: any) => {
-        console.log("=== DrawingObjectSelector CALLED ===");
-        console.log("Event:", e.type, e.target);
-        console.log("Interactives received:", interactives);
-        console.log("MoreProps:", moreProps);
-
         const newState = this.toObject(interactives, (each) => {
-            console.log("Processing interactive:", each);
             const stateKey = each.chartId === 1 ? "retracements" : `${each.type.toLowerCase()}_${each.chartId}`;
             return [stateKey, each.objects || []];
         });
 
-        console.log("New state to set:", newState);
         this.setState(newState);
-        console.log("=== END DrawingObjectSelector ===");
     };
 
     public render() {
@@ -124,14 +114,6 @@ class FibonacciChart extends React.Component<FibonacciChartProps, FibonacciChart
         const { enableFibonacci, retracements } = this.state;
 
         const safeRetracements = Array.isArray(retracements) ? retracements : [];
-
-        console.log("FibonacciChart render:", {
-            enableFibonacci,
-            retracements: safeRetracements.length,
-            rawRetracements: retracements,
-            selectorEnabled: !enableFibonacci,
-            interactiveNodes: this.interactiveNodes,
-        });
 
         const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor((d: IOHLCData) => d.date);
         const { data: chartData, xScale, xAccessor, displayXAccessor } = xScaleProvider(data);
@@ -204,7 +186,9 @@ class FibonacciChart extends React.Component<FibonacciChartProps, FibonacciChart
                             ref={this.saveInteractiveNodes("FibonacciRetracement", 1)}
                             enabled={enableFibonacci}
                             snap={false}
-                            onStart={() => console.log("Fibonacci drawing started")}
+                            onStart={() => {
+                                // Fibonacci drawing started
+                            }}
                             onComplete={this.onDrawComplete}
                             retracements={safeRetracements}
                         />

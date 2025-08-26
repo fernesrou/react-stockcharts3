@@ -57,7 +57,6 @@ class StandardDeviationChannelChart extends React.Component<
     }
 
     private getInteractiveNodes() {
-        console.log("getInteractiveNodes called:", this.interactiveNodes);
         return this.interactiveNodes;
     }
 
@@ -89,7 +88,6 @@ class StandardDeviationChannelChart extends React.Component<
     };
 
     private readonly onDrawComplete = (e: React.MouseEvent, newStdDevChannels: any[], _moreProps: any) => {
-        console.log("StandardDeviationChannel drawing completed:", newStdDevChannels);
         this.setState({
             enableStdDevChannel: false,
             stdDevChannels: newStdDevChannels,
@@ -106,19 +104,12 @@ class StandardDeviationChannelChart extends React.Component<
     }
 
     private readonly handleSelection = (e: React.MouseEvent, interactives: any[], _moreProps: any) => {
-        console.log("=== DrawingObjectSelector CALLED (StandardDeviationChannel) ===");
-        console.log("Event:", e.type, e.target);
-        console.log("Interactives received:", interactives);
-
         const newState = this.toObject(interactives, (each) => {
-            console.log("Processing interactive:", each);
             const stateKey = each.chartId === 1 ? "stdDevChannels" : `${each.type.toLowerCase()}_${each.chartId}`;
             return [stateKey, each.objects || []];
         });
 
-        console.log("New state to set:", newState);
         this.setState(newState);
-        console.log("=== END DrawingObjectSelector (StandardDeviationChannel) ===");
     };
 
     public render() {
@@ -126,14 +117,6 @@ class StandardDeviationChannelChart extends React.Component<
         const { enableStdDevChannel, stdDevChannels } = this.state;
 
         const safeStdDevChannels = Array.isArray(stdDevChannels) ? stdDevChannels : [];
-
-        console.log("StandardDeviationChannelChart render:", {
-            enableStdDevChannel,
-            stdDevChannels: safeStdDevChannels.length,
-            rawStdDevChannels: stdDevChannels,
-            selectorEnabled: !enableStdDevChannel,
-            interactiveNodes: this.interactiveNodes,
-        });
 
         const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor((d: IOHLCData) => d.date);
         const { data: chartData, xScale, xAccessor, displayXAccessor } = xScaleProvider(data);
@@ -207,7 +190,9 @@ class StandardDeviationChannelChart extends React.Component<
                             ref={this.saveInteractiveNodes("StandardDeviationChannel", 1)}
                             enabled={enableStdDevChannel}
                             snap={false}
-                            onStart={() => console.log("StandardDeviationChannel drawing started")}
+                            onStart={() => {
+                                // StandardDeviationChannel drawing started
+                            }}
                             onComplete={this.onDrawComplete}
                             stdDevChannels={safeStdDevChannels}
                         />

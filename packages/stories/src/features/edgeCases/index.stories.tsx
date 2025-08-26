@@ -83,7 +83,6 @@ export const emptyThenThreeAsync: Story = {
         const [data, setData] = useState<any[]>([]);
         useEffect(() => {
             const timeout = setTimeout(() => {
-                console.log("Set data");
                 setData([
                     {
                         close: 120,
