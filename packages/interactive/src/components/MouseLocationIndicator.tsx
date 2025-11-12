@@ -70,7 +70,7 @@ export class MouseLocationIndicator extends React.Component<MouseLocationIndicat
             const xValue =
                 snap && !shouldDisableSnap(e)
                     ? xAccessor(currentItem)
-                    : getXValue(xScale, xAccessor, mouseXY, plotData);
+                    : xScale.invert ? xScale.invert(mouseXY[0]) : getXValue(xScale, xAccessor, mouseXY, plotData);
             const yValue =
                 snap && snapTo !== undefined && !shouldDisableSnap(e)
                     ? getClosestValue(snapTo(currentItem), yScale.invert(mouseXY[1]))

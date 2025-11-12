@@ -210,7 +210,7 @@ export class EachEquidistantChannel extends React.Component<EachEquidistantChann
         const x1 = xScale(endXY[0]);
         const y1 = yScale(endXY[1]);
 
-        const newX1Value = getXValue(xScale, xAccessor, [x1 - dx, y1 - dy], fullData);
+        const newX1Value = xScale.invert ? xScale.invert(x1 - dx) : getXValue(xScale, xAccessor, [x1 - dx, y1 - dy], fullData);
         const newY1Value = yScale.invert(y1 - dy);
 
         onDrag(e, index, {
@@ -239,7 +239,7 @@ export class EachEquidistantChannel extends React.Component<EachEquidistantChann
         const x1 = xScale(startXY[0]);
         const y1 = yScale(startXY[1]);
 
-        const newX1Value = getXValue(xScale, xAccessor, [x1 - dx, y1 - dy], fullData);
+        const newX1Value = xScale.invert ? xScale.invert(x1 - dx) : getXValue(xScale, xAccessor, [x1 - dx, y1 - dy], fullData);
         const newY1Value = yScale.invert(y1 - dy);
 
         onDrag(e, index, {
@@ -270,9 +270,9 @@ export class EachEquidistantChannel extends React.Component<EachEquidistantChann
         const dx = startPos[0] - mouseXY[0];
         const dy = startPos[1] - mouseXY[1];
 
-        const newX1Value = getXValue(xScale, xAccessor, [x1 - dx, y1 - dy], fullData);
+        const newX1Value = xScale.invert ? xScale.invert(x1 - dx) : getXValue(xScale, xAccessor, [x1 - dx, y1 - dy], fullData);
         const newY1Value = yScale.invert(y1 - dy);
-        const newX2Value = getXValue(xScale, xAccessor, [x2 - dx, y2 - dy], fullData);
+        const newX2Value = xScale.invert ? xScale.invert(x2 - dx) : getXValue(xScale, xAccessor, [x2 - dx, y2 - dy], fullData);
         const newY2Value = yScale.invert(y2 - dy);
 
         onDrag(e, index, {

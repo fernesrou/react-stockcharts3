@@ -9,10 +9,10 @@ React Financial Charts is a TypeScript-based monorepo for creating financial cha
 ## Common Commands
 
 ### Development
-- `npm start` - Starts development server with watch mode and Storybook
+- `npm start` - Builds all packages, then starts watch mode and Storybook in parallel
 - `npm run build` - Builds all packages using Lerna
-- `npm run watch` - Watches all packages for changes in parallel
-- `npm run bootstrap` - Bootstraps Lerna dependencies (runs automatically after install)
+- `npm run watch` - Watches all packages for changes in parallel (requires prior build)
+- After `npm ci`, dependencies are automatically bootstrapped via Lerna
 
 ### Linting and Testing
 - `npm run lint` - Runs ESLint on TypeScript/TSX files
@@ -20,11 +20,12 @@ React Financial Charts is a TypeScript-based monorepo for creating financial cha
 - `npm test` - Runs tests across all packages
 
 ### Package-Specific Builds
-- `npm run build:core` - Builds only the core package
-- `npm run build:charts` - Builds only the main charts package
-- `npm run build:series` - Builds only the series package
-- `npm run build:indicators` - Builds only the indicators package
-- Individual packages can be built with: `lerna run build --scope='*/[package-name]'`
+- `npm run build:core` - Builds only the core package (`@react-stockcharts3/core`)
+- `npm run build:charts` - Builds only the main charts package (`react-stockcharts3`)
+- `npm run build:series` - Builds only the series package (`@react-stockcharts3/series`)
+- `npm run build:indicators` - Builds only the indicators package (`@react-stockcharts3/indicators`)
+- Build other packages: `npm run build:annotations`, `build:axes`, `build:coordinates`, `build:interactive`, `build:scales`, `build:tooltip`, `build:utils`
+- Generic Lerna command: `lerna run build --scope=@react-stockcharts3/[package-name]`
 
 ### Documentation
 - `npm run docs` - Builds documentation and Storybook stories
@@ -73,7 +74,7 @@ Each package has its own `tsconfig.json` that extends common TypeScript settings
 Tests use Jest and are located in `__tests__` directories within each package. Run tests for individual packages using Lerna scoping.
 
 ### Storybook
-Examples and documentation are built using Storybook. Stories are located in `packages/stories/src/` organized by feature and component type.
+Examples and documentation are built using Storybook. Stories are located in `packages/stories/src/` organized by feature and component type. Storybook configuration is in `packages/stories/.storybook/`.
 
 ## React 18 Modernization
 
@@ -90,10 +91,10 @@ This project has been modernized to work with React 18. Key documents:
 
 ### Development Setup
 
-For development with Storybook, ensure Strict Mode is disabled to prevent chart flickering:
+Storybook is already configured with Strict Mode disabled to prevent chart flickering:
 
 ```javascript
-// .storybook/main.js
+// packages/stories/.storybook/main.js
 framework: {
   name: "@storybook/react-webpack5",
   options: {
