@@ -1,6 +1,6 @@
 {
     "name": "@react-stockcharts3/tooltip",
-    "version": "1.2.5",
+    "version": "1.2.6",
     "description": "Tooltips for react-stockcharts3",
     "publishConfig": {
         "access": "public"
@@ -38,7 +38,7 @@
         "watch": "tsc -p tsconfig.json --watch --preserveWatchOutput"
     },
     "dependencies": {
-        "@react-stockcharts3/core": "^1.2.5",
+        "@react-stockcharts3/core": "^1.2.6",
         "d3-array": "^2.9.1",
         "d3-format": "^2.0.0",
         "d3-time-format": "^3.0.0"
