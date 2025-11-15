@@ -21,3 +21,15 @@ export const utcScale: Story = {
 export const logScale: Story = {
     render: () => <Daily yScale={scaleLog()} />,
 };
+
+export const timezoneNewYork: Story = {
+    render: () => <Daily timezone="America/New_York" />,
+};
+
+export const timezoneTokyo: Story = {
+    render: () => <Daily timezone="Asia/Tokyo" />,
+};
+
+export const timezoneLondon: Story = {
+    render: () => <Daily timezone="Europe/London" />,
+};

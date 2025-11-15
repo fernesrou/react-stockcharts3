@@ -33,6 +33,7 @@ export interface XAxisProps<T extends number | Date> {
     readonly tickStrokeWidth?: number;
     readonly tickStrokeDasharray?: strokeDashTypes;
     readonly tickValues?: number[];
+    readonly timezone?: string;
     readonly xZoomHeight?: number;
     readonly zoomEnabled?: boolean;
     readonly zoomCursorClassName?: string;
@@ -76,11 +77,18 @@ export class XAxis<T extends number | Date> extends React.Component<XAxisProps<T
             showTicks,
             strokeStyle = XAxis.defaultProps.strokeStyle,
             strokeWidth = XAxis.defaultProps.strokeWidth,
+            tickFormat,
+            timezone,
             zoomEnabled,
             ...rest
         } = this.props;
 
         const { ...moreProps } = this.helper();
+
+        // Wrap tickFormat to include timezone if provided
+        const finalTickFormat = timezone && tickFormat
+            ? (value: T) => tickFormat(value, timezone as any)
+            : tickFormat;
 
         return (
             <Axis
@@ -91,6 +99,8 @@ export class XAxis<T extends number | Date> extends React.Component<XAxisProps<T
                 showTicks={showTicks}
                 strokeStyle={strokeStyle}
                 strokeWidth={strokeWidth}
+                tickFormat={finalTickFormat}
+                timezone={timezone}
                 zoomEnabled={zoomEnabled && showTicks}
                 axisZoomCallback={this.axisZoomCallback}
             />

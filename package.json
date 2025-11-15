@@ -91,8 +91,6 @@
         "typescript": "^5.6.3"
     },
     "dependencies": {
-        "react": "^18.3.0",
-        "react-dom": "^18.3.0",
         "@react-stockcharts3/annotations": "file:packages/annotations",
         "@react-stockcharts3/axes": "file:packages/axes",
         "@react-stockcharts3/coordinates": "file:packages/coordinates",
@@ -105,6 +103,10 @@
         "@react-stockcharts3/tooltip": "file:packages/tooltip",
         "@react-stockcharts3/utils": "file:packages/utils",
         "d3-color": "^3.1.0",
+        "date-fns": "^4.1.0",
+        "date-fns-tz": "^3.2.0",
+        "react": "^18.3.0",
+        "react-dom": "^18.3.0",
         "react-stockcharts3": "file:packages/charts"
     }
 }

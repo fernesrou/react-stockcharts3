@@ -52,6 +52,7 @@ interface AxisProps {
     readonly tickValues?: number[] | ((domain: number[]) => number[]);
     readonly tickInterval?: number;
     readonly tickIntervalFunction?: (min: number, max: number, tickInterval: number) => number[];
+    readonly timezone?: string;
     readonly transform: number[];
     readonly zoomEnabled?: boolean;
     readonly zoomCursorClassName?: string;
@@ -185,6 +186,7 @@ const tickHelper = (props: AxisProps, scale: ScaleContinuousNumeric<number, numb
         tickStrokeStyle,
         tickInterval,
         tickIntervalFunction,
+        timezone,
         ...rest
     } = props;
 
@@ -206,7 +208,7 @@ const tickHelper = (props: AxisProps, scale: ScaleContinuousNumeric<number, numb
         tickValues = scale.domain();
     }
 
-    const format = tickFormat === undefined ? scale.tickFormat(tickArguments) : (d: any) => tickFormat(d) || "";
+    const format = tickFormat === undefined ? scale.tickFormat(tickArguments) : (d: any) => tickFormat(d, timezone) || "";
 
     const sign = orient === "top" || orient === "left" ? -1 : 1;
     const tickSpacing = Math.max(innerTickSize, 0) + tickPadding;

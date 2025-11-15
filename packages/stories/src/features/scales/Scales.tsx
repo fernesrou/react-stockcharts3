@@ -20,13 +20,14 @@ interface ChartProps {
     readonly ratio: number;
     readonly xScale?: ScaleTime<number, number>;
     readonly yScale?: ScaleContinuousNumeric<number, number>;
+    readonly timezone?: string;
 }
 
 class Scales extends React.Component<ChartProps> {
     private readonly margin = { left: 0, right: 48, top: 0, bottom: 24 };
 
     public render() {
-        const { data, height, ratio, width, xScale = scaleTime(), yScale } = this.props;
+        const { data, height, ratio, width, xScale = scaleTime(), yScale, timezone } = this.props;
 
         const xAccessor = (d: IOHLCData) => d.date;
         const max = xAccessor(data[data.length - 1]);
@@ -47,7 +48,7 @@ class Scales extends React.Component<ChartProps> {
             >
                 <Chart id={1} yExtents={this.yExtents} yScale={yScale}>
                     <CandlestickSeries />
-                    <XAxis tickFormat={timeFormat} />
+                    <XAxis tickFormat={timeFormat} timezone={timezone} />
                     <YAxis tickFormat={format(".2f")} />
                 </Chart>
             </ChartCanvas>

@@ -1,5 +1,6 @@
 import { timeSecond, timeMinute, timeHour, timeDay, timeWeek, timeMonth, timeYear } from "d3-time";
 import { timeFormat as d3TimeFormat } from "d3-time-format";
+import { toZonedTime, format as formatTz } from "date-fns-tz";
 
 const formatMillisecond = d3TimeFormat(".%L");
 const formatSecond = d3TimeFormat(":%S");
@@ -10,7 +11,11 @@ const formatWeek = d3TimeFormat("%e");
 const formatMonth = d3TimeFormat("%b");
 const formatYear = d3TimeFormat("%Y");
 
-export const timeFormat = (date: Date) => {
+export const timeFormat = (date: Date, timezone?: string) => {
+    if (timezone) {
+        return timeFormatWithTimezone(date, timezone);
+    }
+
     return (
         timeSecond(date) < date
             ? formatMillisecond
@@ -28,4 +33,27 @@ export const timeFormat = (date: Date) => {
             ? formatMonth
             : formatYear
     )(date);
+};
+
+export const timeFormatWithTimezone = (date: Date, timezone: string): string => {
+    const zonedDate = toZonedTime(date, timezone);
+
+    // Determine the appropriate format based on the granularity
+    if (timeSecond(date) < date) {
+        return formatTz(zonedDate, ".SSS", { timeZone: timezone });
+    } else if (timeMinute(date) < date) {
+        return formatTz(zonedDate, ":ss", { timeZone: timezone });
+    } else if (timeHour(date) < date) {
+        return formatTz(zonedDate, "HH:mm", { timeZone: timezone });
+    } else if (timeDay(date) < date) {
+        return formatTz(zonedDate, "HH:mm", { timeZone: timezone });
+    } else if (timeMonth(date) < date) {
+        if (timeWeek(date) < date) {
+            return formatTz(zonedDate, "d", { timeZone: timezone });
+        }
+        return formatTz(zonedDate, "d", { timeZone: timezone });
+    } else if (timeYear(date) < date) {
+        return formatTz(zonedDate, "MMM", { timeZone: timezone });
+    }
+    return formatTz(zonedDate, "yyyy", { timeZone: timezone });
 };
